@@ -2,9 +2,12 @@
 <html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>dukion shop — Katalog Resmi & Penjualan Eksklusif</title>
-  <meta name="description" content="Katalog resmi dukion shop: Pakaian Atas, Pakaian Bawah, Kerudung, dan Aksesoris muslimah terlengkap dengan foto asli dan pemesanan instan via WhatsApp.">
+  <meta name="description" content="Katalog resmi busana muslimah dukion shop: Pakaian Atas, Pakaian Bawah, Kerudung, dan Aksesoris lengkap dengan foto asli, info pembayaran transfer bank, dan pemesanan instan via WhatsApp.">
+
+  <!-- FAVICON: logo D + keranjang (inline SVG, tanpa file eksternal) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 360'%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath d='M110 40h45v280H70V85Z'/%3E%3Cpath d='M155 40c95 0 145 55 145 140s-50 140-145 140v-45c70 0 100-40 100-95s-30-95-100-95Z'/%3E%3C/clipPath%3E%3CclipPath id='b'%3E%3Crect width='360' height='195'/%3E%3C/clipPath%3E%3CclipPath id='c'%3E%3Crect y='195' width='360' height='165'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url(%23a)'%3E%3Cg clip-path='url(%23b)'%3E%3Crect width='360' height='360' fill='%230f172a'/%3E%3C/g%3E%3Cg clip-path='url(%23c)'%3E%3Crect width='360' height='360' fill='%23b45309'/%3E%3C/g%3E%3C/g%3E%3Cpath d='M100 55c10-40 75-45 90-10' fill='none' stroke='%23b45309' stroke-width='14' stroke-linecap='round'/%3E%3Ccircle cx='188' cy='155' r='12' fill='%23b45309'/%3E%3Ccircle cx='218' cy='182' r='9' fill='%230f172a' opacity='.9'/%3E%3Ccircle cx='188' cy='208' r='8' fill='%23b45309' opacity='.75'/%3E%3C/svg%3E">
 
   <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,11 +27,12 @@
           },
           colors: {
             brand: {
-              50: '#f8fafc',
-              100: '#f1f5f9',
+              50: '#fdfbf7',
+              100: '#f8f4eb',
+              200: '#eddcc5',
               800: '#1e293b',
               900: '#0f172a',
-              accent: '#d97706',
+              amber: '#b45309',
             },
             wa: {
               DEFAULT: '#25D366',
@@ -37,10 +41,11 @@
             }
           },
           boxShadow: {
-            'soft': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
-            'card': '0 14px 35px -8px rgba(15, 23, 42, 0.08)',
-            'card-hover': '0 20px 40px -10px rgba(15, 23, 42, 0.16)',
-            'glow-wa': '0 8px 25px -4px rgba(37, 211, 102, 0.4)',
+            'soft': '0 8px 30px -4px rgba(15, 23, 42, 0.06)',
+            'card': '0 12px 28px -6px rgba(15, 23, 42, 0.08)',
+            'card-hover': '0 20px 36px -10px rgba(15, 23, 42, 0.16)',
+            'glow-wa': '0 8px 24px -4px rgba(37, 211, 102, 0.45)',
+            'modal': '0 25px 60px -15px rgba(15, 23, 42, 0.35)',
           }
         }
       }
@@ -64,8 +69,8 @@
     /* Staggered card animation */
     .fade-card {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(18px);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
     .fade-card.in-view {
@@ -73,12 +78,13 @@
       transform: translateY(0);
     }
 
-    /* Card hover micro-interaction */
+    /* Card micro-interaction: smooth scale 1.00 -> 1.025 + shadow */
     .product-card {
       transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease;
+      cursor: pointer;
     }
     .product-card:hover {
-      transform: scale(1.025) translateY(-4px);
+      transform: scale(1.025) translateY(-3px);
     }
 
     /* WhatsApp Button Micro-interactions */
@@ -87,7 +93,7 @@
     }
     .btn-wa:hover {
       transform: scale(1.02);
-      box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.45);
+      box-shadow: 0 10px 24px -4px rgba(37, 211, 102, 0.45);
     }
     .btn-wa:active {
       transform: scale(0.96);
@@ -98,8 +104,17 @@
       transition: all 0.2s ease;
     }
     .thumb-btn.active {
-      border-color: #d97706;
-      box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.3);
+      border-color: #b45309;
+      box-shadow: 0 0 0 2px rgba(180, 83, 9, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Gallery image crossfade */
+    .fade-photo {
+      transition: opacity 0.25s ease;
+    }
+    .fade-photo.photo-fading {
+      opacity: 0.3;
     }
 
     /* Grid transition */
@@ -124,25 +139,53 @@
       pointer-events: auto;
       transform: translateY(0);
     }
+
+    /* SPA Modal Animations */
+    #productDetailOverlay.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+    #productDetailOverlay.active #modalBackdrop {
+      opacity: 1 !important;
+    }
+    #productDetailOverlay.active #modalBox {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+    }
+
+    /* Toast Notification */
+    #copyToast {
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #copyToast.toast-show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    #copyToast.toast-hide {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 20px);
+    }
   </style>
 </head>
 <body class="bg-stone-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
 
   <!-- TOP ANNOUNCEMENT BAR -->
-  <aside aria-label="Informasi Katalog" class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+  <aside aria-label="Informasi Katalog" class="bg-slate-900 text-slate-300 text-xs py-2 px-3 sm:px-4 border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
       <div class="flex items-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Katalog Resmi <strong>dukion shop</strong> — Foto Asli & Kategori Lengkap</span>
+        <span class="text-[11px] sm:text-xs">Katalog Resmi <strong>dukion shop</strong> — Foto Asli & Koleksi Lengkap</span>
       </div>
-      <div class="flex items-center gap-4 text-slate-400">
-        <span class="hidden sm:inline">Pemesanan Cepat via WhatsApp:</span>
-        <a href="https://api.whatsapp.com/send?phone=6287810162112" target="_blank" rel="noopener" class="text-slate-200 hover:text-white transition font-medium">
-          CS 1: 0878-1016-2112
+      <div class="flex items-center gap-3 sm:gap-4 text-slate-400 text-[11px] sm:text-xs">
+        <span class="hidden sm:inline">Pemesanan Cepat:</span>
+        <a href="https://api.whatsapp.com/send?phone=6287810162112" target="_blank" rel="noopener" class="text-slate-200 hover:text-white transition font-medium flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> CS 1: 0878-1016-2112
         </a>
-        <span class="hidden sm:inline">|</span>
-        <a href="https://api.whatsapp.com/send?phone=62882010480693" target="_blank" rel="noopener" class="text-slate-200 hover:text-white transition font-medium">
-          CS 2: 0882-0104-80693
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <a href="https://api.whatsapp.com/send?phone=62882010480693" target="_blank" rel="noopener" class="text-slate-200 hover:text-white transition font-medium flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> CS 2: 0882-0104-80693
         </a>
       </div>
     </div>
@@ -150,40 +193,57 @@
 
   <!-- STICKY NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/90 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-18 py-2.5 flex items-center justify-between gap-3 sm:gap-4">
       
       <!-- LOGO -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-900 via-slate-800 to-amber-700 flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:shadow-amber-500/20 transition">
-          d
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 shadow-md group-hover:shadow-amber-500/20 transition rounded-xl overflow-hidden bg-white">
+          <svg viewBox="0 0 360 360" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="logoD">
+                <path d="M110,40 L155,40 L155,320 L70,320 L70,85 Z" />
+                <path d="M155,40 C250,40 300,95 300,180 C300,265 250,320 155,320 L155,275 C225,275 255,235 255,180 C255,125 225,85 155,85 Z" />
+              </clipPath>
+              <clipPath id="logoTop"><rect x="0" y="0" width="360" height="195" /></clipPath>
+              <clipPath id="logoBottom"><rect x="0" y="195" width="360" height="165" /></clipPath>
+            </defs>
+            <g clip-path="url(#logoD)">
+              <g clip-path="url(#logoTop)"><rect width="360" height="360" fill="#0f172a" /></g>
+              <g clip-path="url(#logoBottom)"><rect width="360" height="360" fill="#b45309" /></g>
+            </g>
+            <path d="M100,55 C110,15 175,10 190,45" fill="none" stroke="#b45309" stroke-width="14" stroke-linecap="round" />
+            <circle cx="188" cy="155" r="12" fill="#b45309" />
+            <circle cx="218" cy="182" r="9" fill="#0f172a" opacity="0.9" />
+            <circle cx="188" cy="208" r="8" fill="#b45309" opacity="0.75" />
+          </svg>
         </div>
         <div>
-          <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 block leading-tight">
-            dukion <span class="text-amber-700 font-serif italic font-normal text-lg sm:text-xl">shop</span>
+          <span class="text-lg sm:text-2xl font-black tracking-tight text-slate-900 block leading-tight">
+            dukion <span class="text-amber-700 font-serif italic font-normal text-base sm:text-xl">shop</span>
           </span>
-          <span class="text-[10px] text-slate-400 font-semibold tracking-widest uppercase block -mt-0.5">Fashion & Hijab Collection</span>
+          <span class="text-[9px] sm:text-[10px] text-slate-400 font-semibold tracking-widest uppercase block -mt-0.5">Fashion & Hijab Collection</span>
         </div>
       </a>
 
       <!-- DESKTOP QUICK SEARCH IN NAVBAR -->
-      <div class="hidden md:flex flex-1 max-w-md mx-6">
+      <div class="hidden md:flex flex-1 max-w-md mx-4 lg:mx-6">
         <div class="relative w-full">
           <input 
             type="text" 
             id="navSearchInput" 
-            placeholder="Cari produk (contoh: Jisoo, Tunik, Seojin, Khimar)..."
-            class="w-full pl-10 pr-4 py-2 text-sm bg-stone-100 border border-stone-200 rounded-full focus:outline-none focus:ring-2 focus:ring-slate-800 focus:bg-white transition"
+            placeholder="Cari produk (contoh: Tunik, Jisoo, Pashmina)..."
+            class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-stone-100 border border-stone-200 rounded-full focus:outline-none focus:ring-2 focus:ring-slate-800 focus:bg-white transition"
           >
-          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </div>
       </div>
 
       <!-- WHATSAPP CS SWITCHER & DIRECT CONTACT -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <div class="text-right hidden lg:block">
-          <span class="text-[11px] text-slate-400 block font-medium">CS WhatsApp Aktif</span>
+          <span class="text-[10px] text-slate-400 block font-medium">CS WhatsApp Aktif</span>
           <select id="activeCsSelect" class="text-xs font-semibold bg-stone-100 border border-stone-200 rounded-lg px-2 py-1 text-slate-700 cursor-pointer focus:outline-none">
             <option value="6287810162112" selected>CS 1 (0878-1016-2112)</option>
             <option value="62882010480693">CS 2 (0882-0104-80693)</option>
@@ -194,13 +254,12 @@
           href="https://api.whatsapp.com/send?phone=6287810162112&text=Halo%20dukion%20shop,%20saya%20ingin%20tanya-tanya%20katalog%20produknya." 
           target="_blank" 
           rel="noopener"
-          class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full shadow-sm hover:shadow-glow-wa transition-all active:scale-95"
+          class="flex items-center gap-1.5 sm:gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-full shadow-sm hover:shadow-glow-wa transition-all active:scale-95"
         >
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
           </svg>
-          <span class="hidden sm:inline">Hubungi CS</span>
-          <span class="sm:hidden">Chat</span>
+          <span class="font-medium">Chat CS</span>
         </a>
       </div>
 
@@ -208,60 +267,60 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-b from-stone-100 via-stone-50 to-stone-50 pt-10 pb-12 border-b border-stone-200/70 overflow-hidden">
+  <section class="relative bg-gradient-to-b from-stone-100 via-stone-50 to-stone-50 pt-8 pb-10 sm:pt-12 sm:pb-14 border-b border-stone-200/70 overflow-hidden">
     <div class="absolute -top-24 -left-20 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute top-10 -right-20 w-80 h-80 bg-slate-200/40 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="text-center max-w-3xl mx-auto">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100/90 text-amber-900 border border-amber-200 mb-4">
-          ✨ Koleksi Modest Wear & Hijab dukion shop
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-semibold bg-amber-100/90 text-amber-900 border border-amber-200/80 mb-3 sm:mb-4">
+          ✨ Modest Wear & Hijab Collection dukion shop
         </span>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-          Katalog Fashion & Hijab di <span class="serif-title italic font-normal text-amber-800">dukion shop</span>
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3 sm:mb-4">
+          Katalog Busana & Hijab <span class="serif-title italic font-normal text-amber-800">dukion shop</span>
         </h1>
-        <p class="text-slate-600 text-sm sm:text-base md:text-lg mb-7 leading-relaxed">
-          Koleksi busana muslimah, inner knitwear, tunik, celana santai, dan hijab pashmina kaos berkualitas. Foto asli dari katalog resmi dengan pemesanan langsung WhatsApp.
+        <p class="text-slate-600 text-xs sm:text-sm md:text-base mb-6 sm:mb-7 leading-relaxed max-w-2xl mx-auto">
+          Pilihan busana muslimah, knitwear, tunik, celana santai, dan pashmina kualitas terbaik. Foto katalog asli dengan pemesanan langsung WhatsApp dan opsi pembayaran transfer bank.
         </p>
 
         <!-- MAIN SEARCH BAR -->
-        <div class="max-w-2xl mx-auto mb-6">
-          <div class="relative flex items-center shadow-soft rounded-2xl bg-white border border-stone-200 p-1.5 sm:p-2 focus-within:ring-2 focus-within:ring-slate-900 transition">
-            <svg class="w-5 h-5 text-slate-400 ml-3 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="max-w-2xl mx-auto mb-5 sm:mb-6">
+          <div class="relative flex items-center shadow-soft rounded-2xl bg-white border border-stone-200 p-1.5 sm:p-2 focus-within:ring-2 focus-within:ring-slate-900 focus-within:border-transparent transition">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 ml-2.5 sm:ml-3 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
             <input 
               type="text" 
               id="heroSearchInput" 
-              placeholder="Cari berdasarkan nama produk (contoh: Jisoo, Tunik, Seojin, Pashmina)..." 
-              class="w-full text-sm sm:text-base text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none py-1 sm:py-2"
+              placeholder="Cari produk (contoh: Jisoo, Tunik, Seojin, Pashmina)..." 
+              class="w-full text-xs sm:text-sm md:text-base text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none py-1 sm:py-1.5"
             >
             <button 
               id="clearSearchBtn" 
-              class="hidden text-xs bg-stone-100 hover:bg-stone-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg mr-2 transition"
+              class="hidden text-[11px] sm:text-xs bg-stone-100 hover:bg-stone-200 text-slate-600 font-medium px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg mr-1 sm:mr-2 transition shrink-0"
             >
               Reset
             </button>
           </div>
         </div>
 
-        <!-- 4 KATEGORI TETAP SESUAI INSTRUKSI DENGAN PILL SELECTOR MODERN -->
+        <!-- 4 KATEGORI TETAP DENGAN PILL SELECTOR MODERN -->
         <div class="flex flex-col items-center">
-          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Filter Kategori:</div>
-          <div class="inline-flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 p-1.5 bg-stone-200/80 rounded-2xl border border-stone-300/80 shadow-inner">
-            <button class="cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 bg-slate-900 text-white shadow-sm" data-category="Semua">
+          <div class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Pilih Kategori:</div>
+          <div class="inline-flex flex-wrap justify-center items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 bg-stone-200/80 rounded-2xl border border-stone-300/80 shadow-inner max-w-full">
+            <button class="cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 bg-slate-900 text-white shadow-sm" data-category="Semua">
               Semua
             </button>
-            <button class="cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Pakaian Atas">
+            <button class="cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Pakaian Atas">
               👕 Pakaian Atas
             </button>
-            <button class="cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Pakaian Bawah">
+            <button class="cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Pakaian Bawah">
               👖 Pakaian Bawah
             </button>
-            <button class="cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Kerudung">
+            <button class="cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Kerudung">
               🧕 Kerudung
             </button>
-            <button class="cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Aksesoris">
+            <button class="cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60" data-category="Aksesoris">
               ✨ Aksesoris
             </button>
           </div>
@@ -272,39 +331,39 @@
   </section>
 
   <!-- PRODUK UNGGULAN (DARK LUXURY SECTION) -->
-  <section class="py-12 bg-gradient-to-br from-slate-950 via-slate-900 to-stone-900 text-white relative overflow-hidden border-y border-slate-800 shadow-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+  <section class="py-10 sm:py-12 bg-gradient-to-br from-slate-950 via-slate-900 to-stone-900 text-white relative overflow-hidden border-y border-slate-800 shadow-xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-3">
         <div>
-          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold block mb-1">Editor's Choice Collection</span>
-          <h2 class="serif-title text-2xl sm:text-3xl font-bold text-white tracking-wide">
-            Koleksi Unggulan & Best Seller
+          <span class="text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-semibold block mb-1">Editor's Choice Collection</span>
+          <h2 class="serif-title text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-wide">
+            Koleksi Pilihan & Best Seller
           </h2>
         </div>
         <p class="text-slate-400 text-xs sm:text-sm max-w-md">
-          Produk paling dicari dengan material berkualitas dan look modern untuk gaya harian Anda.
+          Ketuk kartu mana saja untuk melihat detail foto lengkap, varian warna, dan cara pembayaran.
         </p>
       </div>
 
-      <div id="featuredProductsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      <div id="featuredProductsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
         <!-- Injected via JS -->
       </div>
     </div>
   </section>
 
   <!-- MAIN CATALOG CONTENT -->
-  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+  <main class="flex-1 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 w-full">
 
     <!-- SUB-CONTROLS (STATUS FILTER & SORTIR) -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200 pb-5 mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-stone-200 pb-4 sm:pb-5 mb-6 sm:mb-8">
       
       <!-- Status filter: Semua, Ready Stock, Arsip/Discontinue -->
       <div class="flex items-center gap-2">
         <span class="text-xs text-slate-500 font-medium">Status:</span>
-        <div class="inline-flex rounded-lg bg-stone-200/70 p-1 text-xs font-semibold text-slate-600">
-          <button class="status-btn px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition" data-status="all">Semua</button>
-          <button class="status-btn px-3 py-1.5 rounded-md hover:text-slate-900 transition" data-status="available">Ready Stock</button>
-          <button class="status-btn px-3 py-1.5 rounded-md hover:text-slate-900 transition" data-status="discontinue">Arsip (Discontinue)</button>
+        <div class="inline-flex rounded-lg bg-stone-200/70 p-1 text-[11px] sm:text-xs font-semibold text-slate-600">
+          <button class="status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition" data-status="all">Semua</button>
+          <button class="status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:text-slate-900 transition" data-status="available">Ready Stock</button>
+          <button class="status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:text-slate-900 transition" data-status="discontinue">Arsip (Discontinue)</button>
         </div>
       </div>
 
@@ -313,7 +372,7 @@
         <span class="text-xs text-slate-500">
           Total: <strong id="productCounter" class="text-slate-900 font-bold">0</strong> item
         </span>
-        <select id="sortSelect" class="text-xs font-semibold bg-white border border-stone-300 rounded-lg px-3 py-2 text-slate-700 cursor-pointer shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-800">
+        <select id="sortSelect" class="text-xs font-semibold bg-white border border-stone-300 rounded-lg px-2.5 py-1.5 sm:px-3 sm:py-2 text-slate-700 cursor-pointer shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-800">
           <option value="newest">Urutan: Terbaru</option>
           <option value="price-asc">Harga: Terendah - Tertinggi</option>
           <option value="price-desc">Harga: Tertinggi - Terendah</option>
@@ -323,60 +382,83 @@
 
     </div>
 
-    <!-- MAIN PRODUCT GRID -->
-    <!-- Responsif: 2 kolom di HP, 3 kolom tablet, 4 kolom desktop -->
-    <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+    <!-- MAIN PRODUCT GRID (2 kolom di HP, 3 kolom tablet, 4 kolom desktop) -->
+    <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6">
       <!-- Injected via JavaScript -->
     </div>
 
     <!-- EMPTY STATE IF NO RESULT -->
-    <div id="emptyState" class="hidden text-center py-20 bg-white rounded-3xl border border-dashed border-stone-300 p-8 my-8">
-      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-stone-100 flex items-center justify-center text-slate-400">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div id="emptyState" class="hidden text-center py-16 sm:py-20 bg-white rounded-3xl border border-dashed border-stone-300 p-6 sm:p-8 my-8">
+      <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-200">
+        <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
-      <h3 class="text-lg font-bold text-slate-800 mb-1">Produk Tidak Ditemukan</h3>
-      <p class="text-sm text-slate-500 max-w-sm mx-auto mb-5">
-        Tidak ada produk yang cocok dengan kata kunci atau filter ini. Coba kata kunci lain atau reset filter.
+      <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-1">Produk tidak ditemukan</h3>
+      <p class="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto mb-5 leading-relaxed">
+        Coba kata kunci lain atau reset filter untuk menemukan produk busana favorit Anda.
       </p>
-      <button id="resetAllBtn" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition active:scale-95">
+      <button id="resetAllBtn" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition active:scale-95 shadow-sm">
         Lihat Semua Produk
       </button>
     </div>
 
   </main>
 
+  <!-- SECTION METODE PEMBAYARAN DI FOOTER HALAMAN UTAMA -->
+  <section class="bg-stone-100/80 border-t border-stone-200 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-6">
+        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-amber-100 text-amber-900 border border-amber-200 mb-2">
+          💳 Info Pembayaran Resmi
+        </span>
+        <h3 class="text-lg sm:text-xl font-bold text-slate-900">Metode Pembayaran Transfer Bank</h3>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">
+          Transaksi dikonfirmasi melalui WhatsApp. Nomor rekening resmi dukion shop:
+        </p>
+      </div>
+      <div id="footerPaymentCards" class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 max-w-4xl mx-auto">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
   <!-- FLOATING SCROLL TO TOP BUTTON -->
   <button 
     id="scrollTopBtn" 
     aria-label="Scroll ke atas"
-    class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-slate-900/90 hover:bg-slate-900 text-white shadow-xl flex items-center justify-center border border-slate-700 hidden-btn transition-all active:scale-90"
+    class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/95 hover:bg-slate-900 text-white shadow-xl flex items-center justify-center border border-slate-700 hidden-btn transition-all active:scale-90"
   >
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path>
     </svg>
   </button>
 
+  <!-- TOAST NOTIFICATION (COPY CLIPBOARD) -->
+  <div id="copyToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 bg-slate-900 text-white text-xs sm:text-sm font-semibold rounded-full shadow-2xl border border-slate-700 flex items-center gap-2 toast-hide">
+    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span id="toastMsg">Nomor rekening berhasil disalin!</span>
+  </div>
+
   <!-- FOOTER -->
-  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 pt-12 pb-8 mt-16">
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 pt-10 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-8 border-b border-slate-800/80">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800/80">
         
         <div class="md:col-span-2 space-y-3">
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold text-lg">
               d
             </div>
             <span class="text-xl font-bold text-white tracking-tight">dukion shop</span>
           </div>
           <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
-            Pusat katalog busana muslimah, pakaian atas, pakaian bawah, kerudung, dan aksesoris berkualitas. Pemesanan instan tanpa ribet langsung ke WhatsApp admin resmi.
+            Pusat busana muslimah, pakaian atas, pakaian bawah, kerudung, dan aksesoris berkualitas. Pemesanan instan tanpa ribet langsung ke WhatsApp admin resmi kami.
           </p>
         </div>
 
         <div>
-          <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3">Kontak WhatsApp Resmi</h4>
+          <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3">Kontak WhatsApp Admin</h4>
           <ul class="space-y-2 text-xs">
             <li>
               <a href="https://api.whatsapp.com/send?phone=6287810162112" target="_blank" rel="noopener" class="hover:text-emerald-400 flex items-center gap-2 transition">
@@ -397,9 +479,9 @@
         </div>
 
         <div>
-          <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3">Struktur Gambar Lokal</h4>
+          <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3">Jaminan & Keaslian</h4>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Semua foto menggunakan path rata di folder <code class="text-amber-400 font-mono">images/[nama-file-asli].jpg</code>. Dilengkapi fallback placeholder otomatis saat file belum tersedia.
+            Semua foto menggunakan foto asli katalog produk. Transaksi aman melalui transfer bank resmi dan konfirmasi admin WhatsApp.
           </p>
         </div>
 
@@ -407,13 +489,217 @@
 
       <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
         <p>&copy; 2026 <strong>dukion shop</strong>. All rights reserved.</p>
-        <p class="text-[11px]">Katalog Penjualan Resmi (HTML5 + Tailwind CSS + Vanilla JS)</p>
+        <p class="text-[11px]">Katalog Penjualan Resmi (HTML5 + Tailwind CSS + Vanilla JS SPA)</p>
       </div>
     </div>
   </footer>
 
+  <!-- ========================================================================= -->
+  <!-- HALAMAN DETAIL PRODUK (SPA FULL-SCREEN OVERLAY / MODAL)                  -->
+  <!-- ========================================================================= -->
+  <div 
+    id="productDetailOverlay" 
+    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 lg:p-6 opacity-0 invisible transition-all duration-300 pointer-events-none"
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="detailTitle"
+  >
+    <!-- BACKDROP BLUR -->
+    <div id="modalBackdrop" class="absolute inset-0 bg-slate-950/75 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+    <!-- MODAL CARD CONTAINER -->
+    <div 
+      id="modalBox" 
+      class="relative z-10 w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-white rounded-t-3xl sm:rounded-3xl shadow-modal overflow-hidden flex flex-col transform translate-y-8 sm:scale-95 opacity-0 transition-all duration-300"
+    >
+      
+      <!-- MODAL HEADER / NAVIGATION -->
+      <div class="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-stone-200 px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-xs text-slate-500 truncate">
+          <button type="button" onclick="closeProductDetail()" class="hover:text-slate-900 font-semibold flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            <span>Katalog</span>
+          </button>
+          <span>/</span>
+          <span class="text-slate-900 font-bold truncate" id="detailBreadcrumb">Detail Produk</span>
+        </div>
+
+        <button 
+          type="button" 
+          onclick="closeProductDetail()" 
+          aria-label="Tutup detail produk"
+          class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition active:scale-90"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- MODAL BODY SCROLLABLE -->
+      <div class="overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 flex-1">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-start">
+          
+          <!-- LEFT COLUMN: PHOTO GALLERY -->
+          <div class="space-y-3">
+            <!-- MAIN PHOTO CONTAINER -->
+            <div class="relative aspect-[4/5] bg-gradient-to-br from-stone-100 via-stone-200 to-slate-200 rounded-2xl overflow-hidden border border-stone-200/80 shadow-inner flex items-center justify-center">
+              
+              <!-- Fallback placeholder -->
+              <div id="detailFallback" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center pointer-events-none text-slate-400">
+                <div class="w-12 h-12 rounded-xl bg-white shadow flex items-center justify-center mb-2" id="detailFallbackIcon"></div>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">dukion shop</span>
+                <span class="text-sm font-semibold text-slate-700 mt-1" id="detailFallbackName"></span>
+              </div>
+
+              <!-- Main Image -->
+              <img 
+                id="detailMainImg" 
+                src="" 
+                alt="Foto Produk" 
+                class="fade-photo absolute inset-0 w-full h-full object-cover"
+                onerror="this.style.display='none'; document.getElementById('detailFallback').style.display='flex';"
+                onload="this.style.display='block'; document.getElementById('detailFallback').style.display='none';"
+              >
+
+              <!-- Photo Counter Badge -->
+              <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow" id="detailPhotoBadge">
+                Foto 1
+              </div>
+
+              <!-- Status Badge on Image -->
+              <div class="absolute top-3 left-3" id="detailStatusBadge">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- THUMBNAILS STRIP -->
+            <div id="detailThumbnailsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+              <!-- Injected via JS -->
+            </div>
+            <p class="text-[10px] text-slate-400 text-center" id="detailGalleryHint">
+              Ketuk foto kecil di atas untuk melihat sudut dan varian lainnya.
+            </p>
+          </div>
+
+          <!-- RIGHT COLUMN: PRODUCT INFO & CHECKOUT -->
+          <div class="space-y-5">
+            
+            <!-- Category & Name -->
+            <div>
+              <div class="flex items-center gap-2 mb-1.5" id="detailCategoryBadge">
+                <!-- Injected via JS -->
+              </div>
+              <h2 id="detailTitle" class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                <!-- Injected via JS -->
+              </h2>
+            </div>
+
+            <!-- Price -->
+            <div class="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-3.5 sm:p-4">
+              <div class="flex items-baseline justify-between gap-2">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-amber-900 block mb-0.5">Harga Jual Resmi:</span>
+                  <span id="detailPrice" class="text-2xl sm:text-3xl font-black text-amber-800">
+                    <!-- Injected via JS -->
+                  </span>
+                </div>
+                <span class="text-[10px] text-emerald-800 font-bold bg-emerald-100 px-2.5 py-1 rounded-full border border-emerald-200">
+                  Ready Order
+                </span>
+              </div>
+              <p class="text-[11px] text-amber-900/80 mt-1.5 leading-normal">
+                ✓ Harga tertera adalah harga final dukion shop (+15% dari modal, transparan & amanah).
+              </p>
+            </div>
+
+            <!-- Description (LENGKAP, TIDAK DIPOTONG) -->
+            <div>
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-1.5">Deskripsi Produk:</h3>
+              <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200/70">
+                <p id="detailDesc" class="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                  <!-- Injected via JS -->
+                </p>
+              </div>
+            </div>
+
+            <!-- VARIANTS SELECTION (JIKA ADA LEBIH DARI SATU) -->
+            <div id="detailVariantsSection" class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-slate-900 uppercase tracking-wider">Pilih Varian:</span>
+                <span class="text-amber-800 font-semibold" id="selectedVariantLabel">Varian: -</span>
+              </div>
+              <div id="detailVariantsList" class="flex flex-wrap gap-2">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- TOMBOL UTAMA: CHECKOUT VIA WHATSAPP -->
+            <div class="pt-2">
+              <a 
+                id="detailCheckoutBtn" 
+                href="#" 
+                target="_blank" 
+                rel="noopener"
+                class="btn-wa w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base py-3.5 px-6 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/30 active:scale-[0.98] transition"
+              >
+                <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                <span>Checkout via WhatsApp</span>
+              </a>
+              <span class="text-[11px] text-slate-400 block text-center mt-2">
+                Pesan otomatis WhatsApp akan otomatis menyertakan nama produk & varian terpilih.
+              </span>
+            </div>
+
+            <!-- SECTION METODE PEMBAYARAN (TRANSFER BANK) -->
+            <div class="pt-3 border-t border-stone-200">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-sm font-bold text-slate-900">💳 Metode Pembayaran Transfer Bank</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mb-3 leading-relaxed">
+                Pembayaran dilakukan via transfer bank setelah konfirmasi ketersediaan di WhatsApp. Silakan gunakan salah satu rekening resmi berikut:
+              </p>
+              
+              <div id="detailPaymentCards" class="space-y-2.5">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+
+            <!-- BUTTON BACK TO CATALOG -->
+            <div class="pt-2">
+              <button 
+                type="button" 
+                onclick="closeProductDetail()" 
+                class="w-full py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-slate-700 font-semibold text-xs rounded-xl transition flex items-center justify-center gap-1.5"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>Kembali ke Katalog Produk</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
   <!-- SCRIPT LOGIKA E-COMMERCE LENGKAP -->
   <script>
+    // ============ EDIT REKENING DI SINI ============
+    // Silakan ubah data rekening di bawah ini sesuai rekening toko Anda:
+    const paymentMethods = [
+      { bank: "Seabank", nama: "NAMA PEMILIK", nomor: "000000000000", color: "#FF5C00", bg: "#FFF4EB" },
+      { bank: "Bank Jago", nama: "NAMA PEMILIK", nomor: "000000000000", color: "#6C5CE7", bg: "#F4F1FF" },
+      { bank: "BRI", nama: "NAMA PEMILIK", nomor: "000000000000", color: "#00529C", bg: "#EBF3FA" }
+    ];
+    // ================================================
+
     /*
       ==========================================================================
       dukion shop - DATA KATALOG PRODUK & SISTEM GAMBAR ASLI
@@ -426,7 +712,6 @@
       
       Aturan File Gambar:
       Path rata: images/[nama-file-asli-dari-export].jpg
-      Contoh: images/photo_464@05-11-2022_16-13-16.jpg
       
       Aturan Harga:
       Harga Jual = Math.round(([Harga Modal] * 1.15) / 1000) * 1000
@@ -454,1001 +739,1329 @@
       'Aksesoris': `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>`
     };
 
-    // DATABASE PRODUK LENGKAP DENGAN NAMA FILE ASLI EXPORT TELEGRAM
+    // DATABASE PRODUK LENGKAP TANPA GOOGLE DRIVE
     const RAW_PRODUCTS = [
-      {
-        id: "p-01",
-        name: "Inner rajut",
-        category: "Kerudung", // inner ciput rajut masuk ke perlengkapan kerudung
-        desc: "Inner rajut anti pusing, elastis, lembut, dan sejuk seharian di kepala.",
-        modal: 12150,
-        mainImage: "photo_253@03-02-2022_15-28-31.jpg",
-        gallery: [
-          "photo_253@03-02-2022_15-28-31.jpg",
-          "photo_254@03-02-2022_15-28-47.jpg",
-          "photo_255@03-02-2022_15-29-25.jpg",
-          "photo_256@03-02-2022_15-30-29.jpg"
-        ],
-        variants: ["Army", "Black", "Dark Grey", "Denim", "Dusty Pink", "Milo", "Mocca", "Navy", "Silver"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: ""
-      },
-      {
-        id: "p-02",
-        name: "Poton square",
-        category: "Kerudung",
-        desc: "Hijab segiempat pollycotton premium, tegak di dahi dan rapi.",
-        modal: 20250,
-        mainImage: "photo_79@22-01-2022_14-05-49.jpg",
-        gallery: [
-          "photo_79@22-01-2022_14-05-49.jpg",
-          "photo_80@22-01-2022_14-05-55.jpg",
-          "photo_81@22-01-2022_14-06-03.jpg",
-          "photo_82@22-01-2022_14-06-12.jpg"
-        ],
-        variants: ["Army", "Black", "Clay", "Cookie", "Dusty Blue", "Khaki", "Latte", "Mocca", "Navy"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1umwykw85sI7aOd4kleNDkmoMVx83J_nY?usp=sharing"
-      },
-      {
-        id: "p-03",
-        name: "Scrunchie",
-        category: "Aksesoris",
-        desc: "Ikat rambut diamond stretch penambah volume hijab natural tanpa bikin pusing.",
-        modal: 8100,
-        mainImage: "photo_159@24-01-2022_14-55-11.jpg",
-        gallery: [
-          "photo_159@24-01-2022_14-55-11.jpg",
-          "photo_160@24-01-2022_14-55-12.jpg"
-        ],
-        variants: ["Mix Warna"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: ""
-      },
-      {
-        id: "p-04",
-        name: "Yoona skirt",
-        category: "Pakaian Bawah",
-        desc: "Rok A-line flowy cerutty babydoll dengan furing lengkap dan karet pinggang.",
-        modal: 52560,
-        mainImage: "photo_196@24-01-2022_15-21-57.jpg",
-        gallery: [
-          "photo_196@24-01-2022_15-21-57.jpg",
-          "photo_197@24-01-2022_15-22-08.jpg",
-          "photo_198@24-01-2022_15-22-18.jpg",
-          "photo_200@24-01-2022_15-22-37.jpg"
-        ],
-        variants: ["Black", "Khaki", "Mocca", "Sand", "White"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/13dr3-rLYssRDGrilHOnfNkjueNmOZEq-?usp=sharing"
-      },
-      {
-        id: "p-05",
-        name: "Paris square",
-        category: "Kerudung",
-        desc: "Segiempat paris voal tegak di dahi, tidak licin dan finishing jahit tepi kecil.",
-        modal: 29970,
-        mainImage: "photo_305@09-02-2022_16-28-23.jpg",
-        gallery: [
-          "photo_305@09-02-2022_16-28-23.jpg",
-          "photo_306@09-02-2022_16-28-23.jpg",
-          "photo_387@30-05-2022_10-03-29.jpg",
-          "photo_388@30-05-2022_10-04-05.jpg"
-        ],
-        variants: ["Army", "Black", "Broken White", "Butter", "Choco", "Latte", "Milo", "Sand"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/10A2GtVEPJ_JBeRVXS-oZYWrfICXhJx01"
-      },
-      {
-        id: "p-06",
-        name: "Sunny skirt",
-        category: "Pakaian Bawah",
-        desc: "Rok cerutty babydoll dengan furing lengkap dan karet pinggang nyaman.",
-        modal: 61200,
-        mainImage: "photo_379@02-05-2022_23-12-06.jpg",
-        gallery: [
-          "photo_379@02-05-2022_23-12-06.jpg",
-          "photo_380@02-05-2022_23-12-06.jpg",
-          "photo_381@02-05-2022_23-12-06.jpg",
-          "photo_404@08-06-2022_11-48-16.jpg"
-        ],
-        variants: ["Khaki", "Mocca", "Mustard", "Sage Green"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1OSADbgNzCZRW1G1N1wPsZwooEA-SGhhr?usp=sharing"
-      },
-      {
-        id: "p-07",
-        name: "Jennie Inner",
-        category: "Pakaian Atas",
-        desc: "Inner hornet knit bertekstur lembut, elastis, menyerap keringat dan adem.",
-        modal: 32400,
-        mainImage: "photo_445@27-09-2022_15-59-35.jpg",
-        gallery: [
-          "photo_445@27-09-2022_15-59-35.jpg",
-          "photo_446@13-10-2022_11-35-59.jpg",
-          "photo_447@13-10-2022_11-35-59.jpg",
-          "photo_448@13-10-2022_11-35-59.jpg"
-        ],
-        variants: ["Black", "Broken White", "Creamy Sage", "Grey", "Mocca", "Olive"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/18QkNMkQMg_9jxqABG2iEdWEdUZioaZhZ"
-      },
-      {
-        id: "p-08",
-        name: "Jisoo Inner Knit",
-        category: "Pakaian Atas",
-        desc: "Inner knit turtle neck bertekstur halus, stretch mewah dan elegan untuk layering.",
-        modal: 38160,
-        mainImage: "photo_464@05-11-2022_16-13-16.jpg",
-        gallery: [
-          "photo_464@05-11-2022_16-13-16.jpg",
-          "photo_465@05-11-2022_16-13-22.jpg",
-          "photo_466@05-11-2022_16-13-31.jpg",
-          "photo_467@05-11-2022_16-13-35.jpg"
-        ],
-        variants: ["Black", "Broken White", "Creamy Sage", "Cream", "Mocca", "Dark Grey"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/18nzxyCvtkUPl1s1K3Robh-gBY-gdA3Pb?usp=sharing"
-      },
-      {
-        id: "p-09",
-        name: "Tiffany Shirt",
-        category: "Pakaian Atas",
-        desc: "Kemeja crinkle airflow flowy dan ironless dengan kancing hidup full sampai bawah.",
-        modal: 61200,
-        mainImage: "photo_468@11-11-2022_09-09-46.jpg",
-        gallery: [
-          "photo_468@11-11-2022_09-09-46.jpg",
-          "photo_470@11-11-2022_09-09-53.jpg",
-          "photo_471@11-11-2022_09-10-01.jpg",
-          "photo_472@11-11-2022_09-10-08.jpg"
-        ],
-        variants: ["Black", "Broken White", "Dusty Purple", "Mint", "Nude"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1e5m81CCBSdjzrmNDPuGEjHobTbsf7BLq?usp=share_link"
-      },
-      {
-        id: "p-10",
-        name: "Jennie One Set",
-        category: "Pakaian Atas", <!-- cek kategori: One Set blouse + celana -->
-        desc: "Setelan atasan oversized dan kulot hornet knit yang elastis dan nyaman.",
-        modal: 123840,
-        mainImage: "photo_529@01-03-2023_20-03-07.jpg",
-        gallery: [
-          "photo_529@01-03-2023_20-03-07.jpg",
-          "photo_508@19-01-2023_08-03-19.jpg",
-          "photo_509@19-01-2023_08-03-42.jpg",
-          "photo_510@19-01-2023_08-04-05.jpg"
-        ],
-        variants: ["Sage", "Olive", "Black", "Cream", "Mocca"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1ONZtDQWncl0pdyLorD3G-tays06jKyFo?usp=share_link"
-      },
-      {
-        id: "p-11",
-        name: "Minji Skirt",
-        category: "Pakaian Bawah",
-        desc: "Rok flowy crinkle airflow ironless dengan resleting belakang dan furing putih.",
-        modal: 64080,
-        mainImage: "photo_511@01-02-2023_13-38-01.jpg",
-        gallery: [
-          "photo_511@01-02-2023_13-38-01.jpg",
-          "photo_512@01-02-2023_13-38-01.jpg",
-          "photo_513@01-02-2023_13-38-01.jpg",
-          "photo_515@01-02-2023_13-43-57.jpg"
-        ],
-        variants: ["Black", "Broken White", "Dusty Purple", "Nude", "Sage", "Latte"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1mxWQOgWll4m7lAc-iHM92Bn3l2WGnuFV?usp=share_link"
-      },
-      {
-        id: "p-12",
-        name: "Hanni One Set",
-        category: "Pakaian Atas", <!-- cek kategori: One Set tunik + rok -->
-        desc: "Setelan atasan dan rok hornet knit strechy, lembut dan stylish.",
-        modal: 105120,
-        mainImage: "photo_530@02-03-2023_21-50-05.jpg",
-        gallery: [
-          "photo_530@02-03-2023_21-50-05.jpg",
-          "photo_531@02-03-2023_21-50-15.jpg",
-          "photo_532@02-03-2023_21-50-25.jpg",
-          "photo_533@02-03-2023_21-51-27.jpg"
-        ],
-        variants: ["Army", "Olive", "Sage", "Cream", "Creamy Sage", "Black"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1UB4qIpdLq8AftIKTX1HxIx-ByoCgDyzQ?usp=share_link"
-      },
-      {
-        id: "p-13",
-        name: "Pashmina Jersey Kaos",
-        category: "Kerudung",
-        desc: "Pashmina jersey kaos stretch import, jatuh dingin di kepala tanpa perlu jarum pentul.",
-        modal: 39690,
-        mainImage: "photo_526@23-02-2023_13-32-38.jpg",
-        gallery: [
-          "photo_526@23-02-2023_13-32-38.jpg",
-          "photo_527@23-02-2023_13-32-41.jpg",
-          "photo_528@23-02-2023_13-32-44.jpg"
-        ],
-        variants: ["Black", "Broken White", "Dark Grey", "Grey", "Ivory", "Khaki", "Nutella", "Walnut"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/194fwe7Zc5aJTBfWCCSabaj3H2MGy7WTe?usp=share_link"
-      },
-      {
-        id: "p-14",
-        name: "Lisa Dress",
-        category: "Pakaian Atas", <!-- cek kategori: Gamis / Long dress -->
-        desc: "Dress knit hornet berkerah dengan lengan puffy wudhu friendly dan rok lebar.",
-        modal: 107280,
-        mainImage: "photo_549@10-04-2023_10-15-35.jpg",
-        gallery: [
-          "photo_549@10-04-2023_10-15-35.jpg",
-          "photo_553@12-04-2023_15-21-53.jpg",
-          "photo_554@12-04-2023_15-21-59.jpg",
-          "photo_555@12-04-2023_15-22-02.jpg"
-        ],
-        variants: ["Black", "BW", "Cream", "Creamy Sage", "Mocca", "Sage"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1wS5HvSrGmwEjiHcuHS7ZGQ2aLwolf1QI?usp=share_link"
-      },
-      {
-        id: "p-15",
-        name: "Dress Kids",
-        category: "Pakaian Atas", <!-- cek kategori: Dress anak -->
-        desc: "Gaun anak berbahan knit hornet lembut, elastis dan nyaman untuk bergerak.",
-        modal: 56880,
-        mainImage: "photo_548@10-04-2023_10-13-02.jpg",
-        gallery: [
-          "photo_548@10-04-2023_10-13-02.jpg",
-          "photo_550@10-04-2023_10-16-30.jpg",
-          "photo_551@10-04-2023_10-17-10.jpg",
-          "photo_557@03-05-2023_18-54-36.jpg"
-        ],
-        variants: ["Black", "BW", "Cream", "Creamy Sage", "Mocca", "Sage"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/19IpXUTBu8X7raXjbwovpGFyjcpMoQm2X?usp=drive_link"
-      },
-      {
-        id: "p-16",
-        name: "Havana Top",
-        category: "Pakaian Atas",
-        desc: "Atasan havana knit batwing flowy bertekstur salur elegan yang tidak menerawang.",
-        modal: 64080,
-        mainImage: "photo_563@06-07-2023_09-56-25.jpg",
-        gallery: [
-          "photo_563@06-07-2023_09-56-25.jpg",
-          "photo_564@06-07-2023_09-57-05.jpg",
-          "photo_565@06-07-2023_09-57-42.jpg"
-        ],
-        variants: ["Black", "Dark Grey", "Peanut", "Sage", "Sand"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1A5RLRrjoZXJqeG3Ph_661bHmla-DlnEY?usp=drive_link"
-      },
-      {
-        id: "p-17",
-        name: "Scrunchie Mini",
-        category: "Aksesoris",
-        desc: "Kunciran mini knit hornet ringan anti pusing untuk cepolan hijab sehari-hari.",
-        modal: 4860,
-        mainImage: "photo_566@01-09-2023_10-20-58.jpg",
-        gallery: [
-          "photo_566@01-09-2023_10-20-58.jpg",
-          "photo_567@01-09-2023_10-20-58.jpg"
-        ],
-        variants: ["Random Mix Color"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: ""
-      },
-      {
-        id: "p-18",
-        name: "Gia Cardigan",
-        category: "Pakaian Atas",
-        desc: "Cardigan rib knit semi crop top beraksen kriwil neci manis dan kancing elegan.",
-        modal: 46800,
-        mainImage: "photo_586@25-10-2023_09-32-48.jpg",
-        gallery: [
-          "photo_586@25-10-2023_09-32-48.jpg",
-          "photo_587@25-10-2023_09-32-54.jpg",
-          "photo_588@25-10-2023_09-33-02.jpg",
-          "photo_590@25-10-2023_09-33-29.jpg"
-        ],
-        variants: ["Black", "Broken White", "Cream", "Dark Grey", "Latte", "Misty", "Khaki"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/1s0Ldr7yI16uaCNjpXaHhM5BGKSKRuLUq?usp=drive_link"
-      },
-      {
-        id: "p-19",
-        name: "Basic Inner Kaos",
-        category: "Pakaian Atas",
-        desc: "Manset katun combed 30s premium adem, menyerap keringat dan tidak menerawang.",
-        modal: 35000,
-        mainImage: "photo_568@02-10-2023_15-38-07.jpg",
-        gallery: [
-          "photo_568@02-10-2023_15-38-07.jpg",
-          "photo_569@02-10-2023_15-38-18.jpg",
-          "photo_570@02-10-2023_15-38-24.jpg",
-          "photo_572@02-10-2023_15-38-35.jpg"
-        ],
-        variants: ["Black", "Broken White", "Cream", "Dusty Blue", "Sage", "Terracotta"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1fCqbtZo7bGy_wNJwMjBMyeesLr4Bk83u?usp=drive_link"
-      },
-      {
-        id: "p-20",
-        name: "Inner Ciput Jersey Kaos",
-        category: "Kerudung",
-        desc: "Ciput ninja jersey fleksibel, pas menempel nyaman di kepala tanpa menekan telinga.",
-        modal: 15390,
-        mainImage: "photo_575@02-10-2023_15-41-00.jpg",
-        gallery: [
-          "photo_575@02-10-2023_15-41-00.jpg",
-          "photo_576@02-10-2023_15-41-08.jpg",
-          "photo_577@02-10-2023_15-41-14.jpg",
-          "photo_578@02-10-2023_15-41-20.jpg"
-        ],
-        variants: ["Black", "Grey", "Ivory", "Khaki", "Nutella"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1QxIVndCIh3qpHUiltP1JOyuVzUrN86sJ?usp=drive_link"
-      },
-      {
-        id: "p-21",
-        name: "Belle Pants",
-        category: "Pakaian Bawah",
-        desc: "Celana katun stretch semi cutbray dengan saku samping dan karet pinggang belakang.",
-        modal: 66960,
-        mainImage: "photo_580@12-10-2023_10-32-55.jpg",
-        gallery: [
-          "photo_580@12-10-2023_10-32-55.jpg",
-          "photo_581@12-10-2023_10-33-09.jpg",
-          "photo_582@12-10-2023_10-33-21.jpg",
-          "photo_583@12-10-2023_10-33-34.jpg"
-        ],
-        variants: ["Black", "Broken White", "Caramel", "Nude", "Silver", "Stone"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/12NYPP4MpgI1HFWcOcWfID4WySa01Ggko?usp=drive_link"
-      },
-      {
-        id: "p-22",
-        name: "Yuri Set",
-        category: "Pakaian Atas", <!-- cek kategori: Stelan atasan crop + rok -->
-        desc: "Setelan atasan 7/8 dan rok midi berbahan linen grade A adem bertekstur jelas.",
-        modal: 128000,
-        mainImage: "photo_607@24-05-2024_11-08-23.jpg",
-        gallery: [
-          "photo_607@24-05-2024_11-08-23.jpg"
-        ],
-        variants: ["Black", "Broken White", "Cream", "Dark Grey", "Khaki", "Latte", "Mocca"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1qLK3pmke1Sf4vCC14gt-D82wSiWRzeQb?usp=drive_link"
-      },
-      {
-        id: "p-23",
-        name: "Nami Cardigan",
-        category: "Pakaian Atas",
-        desc: "Cardigan rib knit grade A tebal halus dengan tepi neci dan pilihan model crop/long.",
-        modal: 49680,
-        mainImage: "photo_638@24-08-2024_12-07-59.jpg",
-        gallery: [
-          "photo_638@24-08-2024_12-07-59.jpg",
-          "photo_639@24-08-2024_12-08-26.jpg",
-          "photo_640@24-08-2024_12-08-44.jpg",
-          "photo_641@24-08-2024_12-08-56.jpg"
-        ],
-        variants: ["Black Crop", "DGrey Long", "Emerald Crop", "Emerald Long", "Maroon Long"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1p5EFE9KBc3qs2tmZwsBS-94kA1W52gAg?usp=drive_link"
-      },
-      {
-        id: "p-24",
-        name: "Stripy Cardigan",
-        category: "Pakaian Atas",
-        desc: "Outer cardigan rajut bermotif garis horizontal klasik vintage Parisian look.",
-        modal: 42480,
-        mainImage: "photo_607@24-05-2024_11-08-23.jpg",
-        gallery: [
-          "photo_607@24-05-2024_11-08-23.jpg",
-          "photo_608@24-05-2024_11-08-36.jpg",
-          "photo_609@24-05-2024_11-08-47.jpg",
-          "photo_610@24-05-2024_11-09-04.jpg"
-        ],
-        variants: ["Black Stripe", "Navy Stripe", "Choco Stripe"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1VHM9C6vchi4K0AVJJIw12UGb1TT2CkiZ?usp=sharing"
-      },
-      {
-        id: "p-25",
-        name: "Gia Cardigan Kids",
-        category: "Pakaian Atas",
-        desc: "Versi anak Gia Cardigan favorit dengan potongan semi crop dan rajutan halus.",
-        modal: 39600,
-        mainImage: "photo_611@20-06-2024_09-15-59.jpg",
-        gallery: [
-          "photo_611@20-06-2024_09-15-59.jpg",
-          "photo_612@20-06-2024_09-15-59.jpg",
-          "photo_613@20-06-2024_09-15-59.jpg",
-          "photo_615@20-06-2024_09-16-00.jpg"
-        ],
-        variants: ["Soft Peach", "Dusty Blue", "Mint", "Cream"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1jCvCnXAIjiqLUhumN5XKk4sWTOwTbmEO?usp=drive_link"
-      },
-      {
-        id: "p-26",
-        name: "Gia Long",
-        category: "Pakaian Atas",
-        desc: "Long cardigan rib knit flowy dengan aksen kriwil rapi, modest dan nyaman.",
-        modal: 54000,
-        mainImage: "photo_625@15-07-2024_19-00-57.jpg",
-        gallery: [
-          "photo_625@15-07-2024_19-00-57.jpg",
-          "photo_626@15-07-2024_19-01-12.jpg",
-          "photo_627@15-07-2024_19-01-23.jpg",
-          "photo_631@15-07-2024_19-02-03.jpg"
-        ],
-        variants: ["Black", "Charcoal", "Cream", "Dusty Blue", "Dark Grey", "Khaki"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1TReE_5gQbpew1w2HFVD_eSGuNhUjZ7yr?usp=drive_link"
-      },
-      {
-        id: "p-27",
-        name: "Jeju Top",
-        category: "Pakaian Atas",
-        desc: "Blouse santai cotton combed 30s adem dengan aksen drop shoulder yang stylish.",
-        modal: 71280,
-        mainImage: "photo_643@30-08-2024_21-12-15.jpg",
-        gallery: [
-          "photo_643@30-08-2024_21-12-15.jpg",
-          "photo_644@30-08-2024_21-12-27.jpg",
-          "photo_645@30-08-2024_21-12-39.jpg",
-          "photo_646@30-08-2024_21-12-50.jpg"
-        ],
-        variants: ["Broken White", "Lilac Grey", "Warm Tan"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1raG1PHhCWDCUy92I2_Qpwo5KlGW9Gpff?usp=drive_link"
-      },
-      {
-        id: "p-28",
-        name: "Yejin Skirt",
-        category: "Pakaian Bawah",
-        desc: "Rok rib knit cutting mermaid dengan ban pinggang seamless yang minimalist.",
-        modal: 54000,
-        mainImage: "photo_647@30-08-2024_21-17-27.jpg",
-        gallery: [
-          "photo_647@30-08-2024_21-17-27.jpg",
-          "photo_648@30-08-2024_21-17-33.jpg",
-          "photo_649@30-08-2024_21-17-42.jpg",
-          "photo_651@30-08-2024_21-17-57.jpg"
-        ],
-        variants: ["Cream", "Khaki", "Denim", "Emerald", "Mocca", "Black", "Charcoal"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1OvsdpBVc_MC82ycf_zICmo_Z0VuHSg9R?usp=drive_link"
-      },
-      {
-        id: "p-29",
-        name: "Voal Shawl",
-        category: "Kerudung",
-        desc: "Pashmina arabian voile lembut, tidak terlalu tebal dan tidak gerah dipakai.",
-        modal: 39690,
-        mainImage: "photo_660@09-09-2024_07-46-22.jpg",
-        gallery: [
-          "photo_660@09-09-2024_07-46-22.jpg",
-          "photo_661@09-09-2024_07-46-35.jpg",
-          "photo_662@09-09-2024_07-46-49.jpg",
-          "photo_665@09-09-2024_07-47-31.jpg"
-        ],
-        variants: ["Wood", "Dark Mauve", "Stone", "Celery", "Almond", "Beige", "Candy", "Cream"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1lG5hoDNnKpib8hxvANZiL_Tkg_4p6dkY?usp=drive_link"
-      },
-      {
-        id: "p-30",
-        name: "Eunji Top",
-        category: "Pakaian Atas",
-        desc: "Atasan rib knit batwing leher O-neck flowy dan wudhu friendly, ringan dan adem.",
-        modal: 61200,
-        mainImage: "photo_675@08-11-2024_14-19-28.jpg",
-        gallery: [
-          "photo_675@08-11-2024_14-19-28.jpg",
-          "photo_676@08-11-2024_14-19-42.jpg",
-          "photo_677@08-11-2024_14-19-59.jpg",
-          "photo_679@08-11-2024_14-22-50.jpg"
-        ],
-        variants: ["Black", "Broken White", "Burgundy", "Charcoal", "Cream", "Dark Choco", "Denim"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1b0eD38923L-2DrsUeaTUfqzBQyfSxHFI?usp=sharing"
-      },
-      {
-        id: "p-31",
-        name: "Aira Vest",
-        category: "Pakaian Atas",
-        desc: "Vest katun bordir floral breathable dengan bukaan tali samping dan kerah V-neck.",
-        modal: 78480,
-        mainImage: "photo_730@09-01-2026_11-30-39.jpg",
-        gallery: [
-          "photo_730@09-01-2026_11-30-39.jpg",
-          "photo_731@09-01-2026_11-30-54.jpg",
-          "photo_732@09-01-2026_11-31-11.jpg",
-          "photo_733@09-01-2026_11-31-36.jpg"
-        ],
-        variants: ["Cream", "Celery", "Sky", "Peach", "Broken White"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1KDJs0Se5W_8S2NpQYLq3Jycymk9cVcEK?usp=drive_link"
-      },
-      {
-        id: "p-32",
-        name: "Haerin Skirt",
-        category: "Pakaian Bawah",
-        desc: "Panel flare skirt A-line yang melangsingkan dengan detail sablon bunga anggun.",
-        modal: 85680,
-        mainImage: "photo_693@15-04-2025_11-19-44.jpg",
-        gallery: [
-          "photo_693@15-04-2025_11-19-44.jpg",
-          "photo_694@15-04-2025_11-19-52.jpg",
-          "photo_695@15-04-2025_11-20-00.jpg",
-          "photo_696@15-04-2025_11-20-09.jpg"
-        ],
-        variants: ["Burgundy", "Black", "Charcoal", "Beige", "Dark Choco", "Mocca"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1zfxe-y24OaHC_ONO5bNDmd6stFJTGMp8?usp=drive_link"
-      },
-      {
-        id: "p-33",
-        name: "Soft Paris",
-        category: "Kerudung",
-        desc: "Hijab segiempat paris jadul legend, ironless, tepi jahit rapi dan tegak di dahi.",
-        modal: 20250,
-        mainImage: "photo_305@09-02-2022_16-28-23.jpg",
-        gallery: [
-          "photo_305@09-02-2022_16-28-23.jpg"
-        ],
-        variants: ["Khaki", "Sage", "Denim", "Maroon", "Dusty Pink"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1WrN0Hf4M0sPM-BER5s2jz1_6XleFjO-j?usp=drive_link"
-      },
-      {
-        id: "p-34",
-        name: "Haerin Top",
-        category: "Pakaian Atas",
-        desc: "Atasan katun combed lembut dengan drop shoulder dan belahan samping yang leluasa.",
-        modal: 71280,
-        mainImage: "photo_701@24-07-2025_13-58-46.jpg",
-        gallery: [
-          "photo_701@24-07-2025_13-58-46.jpg"
-        ],
-        variants: ["White", "Black", "Stone", "Olive"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1gkWLWnyvlPuhUdofaCjG2evSr9gZq6TA?usp=drive_link"
-      },
-      {
-        id: "p-35",
-        name: "Sora Top",
-        category: "Pakaian Atas",
-        desc: "Top cotton rib knit dengan drapery kerut bahu yang proporsional dan flowy.",
-        modal: 71280,
-        mainImage: "photo_701@24-07-2025_13-58-46.jpg",
-        gallery: [
-          "photo_701@24-07-2025_13-58-46.jpg",
-          "photo_702@24-07-2025_13-59-21.jpg",
-          "photo_703@24-07-2025_13-59-33.jpg",
-          "photo_704@24-07-2025_13-59-41.jpg"
-        ],
-        variants: ["Charcoal", "Dark Grey", "Misty", "Cream"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/18DQMwkPMpVSk27YAd4Xl23LM8PqN8ns_?usp=drive_link"
-      },
-      {
-        id: "p-36",
-        name: "Nari Dress",
-        category: "Pakaian Atas", <!-- cek kategori: Gamis / Dress harian -->
-        desc: "Gamis cotton combed 24s loose melebar ke bawah yang adem dan fit all body type.",
-        modal: 95000,
-        mainImage: "photo_705@24-09-2025_14-44-27.jpg",
-        gallery: [
-          "photo_705@24-09-2025_14-44-27.jpg",
-          "photo_706@24-09-2025_14-44-35.jpg",
-          "photo_707@24-09-2025_14-44-41.jpg",
-          "photo_708@24-09-2025_14-44-49.jpg"
-        ],
-        variants: ["Black", "Charcoal", "Mocca", "Dark Choco", "Beige", "Caramel"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/1DQANdcOzPJWmF7zfmv_qPol1JbtvRSkq?usp=drive_link"
-      },
-      {
-        id: "p-37",
-        name: "Babydoll shawl",
-        category: "Kerudung",
-        desc: "Pashmina cerutty babydoll bertekstur pasir halus dan flowy saat dipakai.",
-        modal: 30600,
-        mainImage: "photo_32@21-01-2022_15-09-56.jpg",
-        gallery: [
-          "photo_32@21-01-2022_15-09-56.jpg",
-          "photo_33@21-01-2022_15-10-09.jpg",
-          "photo_34@21-01-2022_15-10-16.jpg"
-        ],
-        variants: ["Army", "Beige", "Black", "Choco", "Lilac", "Mocca", "Sand"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1Mn8HxGebLKPXqz_a5C30sUkCbuMvzZGe?usp=sharing"
-      },
-      {
-        id: "p-38",
-        name: "Crinkle shawl",
-        category: "Kerudung",
-        desc: "Pashmina katun crinkle rawis tanpa perlu disetrika, praktis dan tebal.",
-        modal: 32300,
-        mainImage: "photo_223@24-01-2022_15-26-33.jpg",
-        gallery: [
-          "photo_223@24-01-2022_15-26-33.jpg",
-          "photo_224@24-01-2022_15-26-41.jpg",
-          "photo_225@24-01-2022_15-26-47.jpg"
-        ],
-        variants: ["Army", "Black", "Choco", "Cupcake", "Grape", "Peanut", "Sand"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/15j1YbXImATipvg08CEydhU5iE1RDnR7e"
-      },
-      {
-        id: "p-39",
-        name: "Ruby pashmina inner",
-        category: "Kerudung",
-        desc: "Pashmina 2-in-1 cerutty babydoll langsung menyatu dengan ciput kaos anti ribet.",
-        modal: 34850,
-        mainImage: "photo_351@09-03-2022_11-05-08.jpg",
-        gallery: [
-          "photo_351@09-03-2022_11-05-08.jpg",
-          "photo_352@09-03-2022_11-05-30.jpg",
-          "photo_353@09-03-2022_11-06-08.jpg"
-        ],
-        variants: ["Black", "Beige", "Blush", "Almond", "Greentea", "Cookie"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1nODaKXLBQJNdxrbHok91jo6ugMm3LzaU"
-      },
-      {
-        id: "p-40",
-        name: "Grace Square Inner",
-        category: "Kerudung",
-        desc: "Hijab segi empat cerutty babydoll yang sudah menyatu dengan inner ciput kaos.",
-        modal: 41650,
-        mainImage: "photo_433@28-07-2022_10-01-39.jpg",
-        gallery: [
-          "photo_433@28-07-2022_10-01-39.jpg",
-          "photo_434@28-07-2022_10-02-13.jpg",
-          "photo_435@28-07-2022_10-02-45.jpg"
-        ],
-        variants: ["Greentea", "Black", "Blush", "Almond", "Choco", "Mocca", "Navy"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1_But5fsI9RmmmF99dUNWFgTsr4bbE_BH"
-      },
-      {
-        id: "p-41",
-        name: "Mina Khirmar Pad",
-        category: "Kerudung",
-        desc: "Khimar syar'i crinkle airflow ber-pad busa rapi yang menutupi dada sempurna.",
-        modal: 33150,
-        mainImage: "photo_536@11-03-2023_11-19-11.jpg",
-        gallery: [
-          "photo_536@11-03-2023_11-19-11.jpg",
-          "photo_537@24-03-2023_07-17-10.jpg",
-          "photo_538@24-03-2023_07-18-19.jpg",
-          "photo_539@24-03-2023_07-18-35.jpg"
-        ],
-        variants: ["Black", "Caramel", "Stone", "Mauve", "Khaki", "Ivory", "Nutella"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1s7IqtGfbr8-SAbHyf0y3pIiIEzUoLdts?usp=share_link"
-      },
-      {
-        id: "p-42",
-        name: "Seojin Pants",
-        category: "Pakaian Bawah",
-        desc: "Celana katun stripe loose highwaist dengan pinggang full karet dan saku samping.",
-        modal: 64080,
-        mainImage: "photo_711@20-10-2025_11-45-33.jpg",
-        gallery: [
-          "photo_711@20-10-2025_11-45-33.jpg",
-          "photo_712@20-10-2025_11-45-44.jpg",
-          "photo_713@20-10-2025_11-46-06.jpg",
-          "photo_715@20-10-2025_11-46-26.jpg"
-        ],
-        variants: ["White", "Baby Yellow", "Dusty Blue", "Milo", "Black", "Beige"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/1tLLDITnkRwZBVPwCDHxOKfy1byDmGAmV?usp=drive_link"
-      },
-      {
-        id: "p-43",
-        name: "Haru Inner",
-        category: "Pakaian Atas",
-        desc: "Inner sleeveless cotton combed adem dengan detail kerut ruffle A-line bawah.",
-        modal: 56880,
-        mainImage: "photo_717@13-11-2025_11-05-45.jpg",
-        gallery: [
-          "photo_717@13-11-2025_11-05-45.jpg",
-          "photo_718@13-11-2025_11-05-55.jpg",
-          "photo_719@13-11-2025_11-06-08.jpg",
-          "photo_720@13-11-2025_11-06-19.jpg"
-        ],
-        variants: ["Baby Yellow", "Almond", "Broken White", "Black", "Dark Choco", "Caramel"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1-0f7Fz7Pl1yyVqMa5wk-QgeUptPi3--a?usp=drive_link"
-      },
-      {
-        id: "p-44",
-        name: "Miyu Top",
-        category: "Pakaian Atas",
-        desc: "Atasan katun combed lengan kerut wudhu friendly dengan detail ruffle bawah feminin.",
-        modal: 71280,
-        mainImage: "photo_723@17-12-2025_11-39-31.jpg",
-        gallery: [
-          "photo_723@17-12-2025_11-39-31.jpg",
-          "photo_724@17-12-2025_11-39-47.jpg",
-          "photo_725@17-12-2025_11-40-00.jpg",
-          "photo_726@17-12-2025_11-40-13.jpg"
-        ],
-        variants: ["Milo", "Dark Choco", "Caramel", "Black", "Seafoam", "Dusty Pink"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1uX8Bb21oiIkpv0ywCvEAsJxDK7JT8jmY?usp=drive_link"
-      },
-      {
-        id: "p-45",
-        name: "Seori Outer",
-        category: "Pakaian Atas",
-        desc: "Outer nylon texture motif bunga dengan 3 tali depan aksen manis dan lengan wudhu friendly.",
-        modal: 118150,
-        mainImage: "photo_730@09-01-2026_11-30-39.jpg",
-        gallery: [
-          "photo_730@09-01-2026_11-30-39.jpg",
-          "photo_731@09-01-2026_11-30-54.jpg"
-        ],
-        variants: ["Cream", "Celery", "Sky", "Peach"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1y3NQ3Ooq84kvLF_ciqFmTop6HKFLiYdY?usp=drive_link"
-      },
-      {
-        id: "p-46",
-        name: "Jangmi Vest",
-        category: "Pakaian Atas",
-        desc: "Vest tencel lyocell bordir asimetris dengan tali pengatur di belakang dan bukaan kancing.",
-        modal: 92880,
-        mainImage: "photo_730@09-01-2026_11-30-39.jpg",
-        gallery: [
-          "photo_730@09-01-2026_11-30-39.jpg",
-          "photo_734@09-01-2026_11-34-08.jpg",
-          "photo_735@09-01-2026_11-37-43.jpg"
-        ],
-        variants: ["Broken White", "Sky", "Peach", "Celery", "Cream"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1y3NQ3Ooq84kvLF_ciqFmTop6HKFLiYdY?usp=drive_link"
-      },
-      {
-        id: "p-47",
-        name: "Viscose Shawl",
-        category: "Kerudung",
-        desc: "Pashmina viscose modal crinkle natural, super flowy dan mewah saat di-drape.",
-        modal: 47790,
-        mainImage: "photo_740@19-02-2026_13-36-50.jpg",
-        gallery: [
-          "photo_740@19-02-2026_13-36-50.jpg",
-          "photo_741@19-02-2026_13-36-56.jpg",
-          "photo_742@19-02-2026_13-37-04.jpg"
-        ],
-        variants: ["Dark Choco", "Black", "Cream"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1-IShR6TdlZ2_NbbmL3NmzlMEAmE-WHRp?usp=sharing"
-      },
-      {
-        id: "p-48",
-        name: "Yura Tunik",
-        category: "Pakaian Atas",
-        desc: "Tunik katun combed 24s A-line dengan belahan depan dan aksen lipatan lengan rapi.",
-        modal: 100080,
-        mainImage: "photo_744@06-05-2026_11-00-22.jpg",
-        gallery: [
-          "photo_744@06-05-2026_11-00-22.jpg",
-          "photo_745@06-05-2026_11-00-31.jpg",
-          "photo_746@06-05-2026_11-00-50.jpg",
-          "photo_747@06-05-2026_11-02-01.jpg"
-        ],
-        variants: ["Black", "Caramel", "Dark Choco", "Peanut", "Vanilla", "Sand", "Olive"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/1R96QnTBG1LamhjxIaBO4THzSZZjaR1sR?usp=drive_link"
-      },
-      {
-        id: "p-49",
-        name: "Darin Tunik",
-        category: "Pakaian Atas",
-        desc: "Tunik katun bordir A-line dengan resleting tersembunyi dan kelepak memanjang anggun.",
-        modal: 98000,
-        mainImage: "photo_752@18-05-2026_11-34-27.jpg",
-        gallery: [
-          "photo_752@18-05-2026_11-34-27.jpg",
-          "photo_753@18-05-2026_11-35-13.jpg",
-          "photo_754@18-05-2026_11-35-29.jpg",
-          "photo_755@18-05-2026_11-35-45.jpg"
-        ],
-        variants: ["Oat", "Latte", "Black", "Broken White", "Burgundy", "Dark Choco", "Dusty"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1U9UnR3agxaJETD0m7KjxzY_6vuf91ikW?usp=drive_link"
-      },
-      {
-        id: "p-50",
-        name: "Ara Tunik",
-        category: "Pakaian Atas",
-        desc: "Tunik cotton mix poly bordir bunga dengan bukaan kancing depan busui dan tali belakang.",
-        modal: 98000,
-        mainImage: "photo_763@18-05-2026_13-20-19.jpg",
-        gallery: [
-          "photo_763@18-05-2026_13-20-19.jpg",
-          "photo_764@18-05-2026_13-20-36.jpg",
-          "photo_765@18-05-2026_13-20-53.jpg",
-          "photo_767@18-05-2026_13-21-19.jpg"
-        ],
-        variants: ["Black - Motif 1", "Denim - Motif 1", "Cream - Motif 1", "Rose Pink - Motif 1"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/17HhG-B3rRbmr8vS3y0ipcHzCgPFZYPp_?usp=drive_link"
-      },
-      {
-        id: "p-51",
-        name: "Hana Tunik",
-        category: "Pakaian Atas",
-        desc: "Tunik nylon tekstur A-line dengan kancing belakang manis dan tali ikat multifungsi.",
-        modal: 98000,
-        mainImage: "photo_774@18-05-2026_13-36-31.jpg",
-        gallery: [
-          "photo_774@18-05-2026_13-36-31.jpg",
-          "photo_775@18-05-2026_13-36-44.jpg",
-          "photo_776@18-05-2026_13-37-08.jpg",
-          "photo_778@18-05-2026_13-37-50.jpg"
-        ],
-        variants: ["Oat - Motif 2", "Salmon - Motif 2", "Oat - Motif 1", "Black - Motif 2"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/17HhG-B3rRbmr8vS3y0ipcHzCgPFZYPp_?usp=drive_link"
-      },
-      {
-        id: "p-52",
-        name: "Rora Skirt",
-        category: "Pakaian Bawah",
-        desc: "Rok A-line motif polkadot bahan soft flowy dengan furing penuh dan saku kanan.",
-        modal: 82000,
-        mainImage: "photo_782@09-06-2026_14-41-19.jpg",
-        gallery: [
-          "photo_782@09-06-2026_14-41-19.jpg",
-          "photo_783@09-06-2026_14-41-38.jpg",
-          "photo_784@09-06-2026_14-41-48.jpg",
-          "photo_785@09-06-2026_14-42-00.jpg"
-        ],
-        variants: ["Cherry", "Cream", "Mahogany", "Butter"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1AGbg-gPoDpb1ywZeZGKRmZUm5zOOM1Gn?usp=drive_link"
-      },
-      {
-        id: "p-53",
-        name: "Miyori Inner",
-        category: "Pakaian Atas",
-        desc: "Inner mix poly sleeveless dengan ruffle lembut di pinggul, siluet A-line seimbang.",
-        modal: 42000,
-        mainImage: "photo_795@08-09-2026_11-18-38.jpg",
-        gallery: [
-          "photo_795@08-09-2026_11-18-38.jpg",
-          "photo_796@08-09-2026_11-18-49.jpg",
-          "photo_797@08-09-2026_11-18-58.jpg",
-          "photo_799@08-09-2026_11-19-17.jpg"
-        ],
-        variants: ["Butter", "Cherry", "Cream", "Mahogany", "Black"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1gsWuSiyNrvHnzdMvjYD1X1WkG0O1ZOd-?usp=sharing"
-      },
-      {
-        id: "p-54",
-        name: "Yuha Top",
-        category: "Pakaian Atas",
-        desc: "Atasan katun combed loose fit dengan layer polkadot dan manset polkadot lengan manis.",
-        modal: 70000,
-        mainImage: "photo_789@08-09-2026_11-07-12.jpg",
-        gallery: [
-          "photo_789@08-09-2026_11-07-12.jpg",
-          "photo_790@08-09-2026_11-07-22.jpg",
-          "photo_791@08-09-2026_11-07-35.jpg",
-          "photo_792@08-09-2026_11-07-45.jpg"
-        ],
-        variants: ["Dusty Pink", "Dark Choco", "Broken White", "Black", "Almond"],
-        isDiscontinue: false,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1XXwqaoCsgrLEUeIm8lASqSxfaPhbYmji?usp=sharing"
-      },
-      {
-        id: "p-55",
-        name: "Seojin Polka Pants",
-        category: "Pakaian Bawah",
-        desc: "Celana katun poplin motif polkadot loose fit highwaist dengan pinggang karet elastis.",
-        modal: 85000,
-        mainImage: "photo_786@08-09-2026_10-59-51.jpg",
-        gallery: [
-          "photo_786@08-09-2026_10-59-51.jpg",
-          "photo_787@08-09-2026_11-00-01.jpg",
-          "photo_788@08-09-2026_11-00-14.jpg"
-        ],
-        variants: ["Mahogany", "Cream", "Black"],
-        isDiscontinue: false,
-        featured: true,
-        driveUrl: "https://drive.google.com/drive/folders/17RyW0cL2GqN4TFxIL4rJWIDRAq4mIjMG?usp=sharing"
-      },
-      {
-        id: "p-56",
-        name: "Mask Extender",
-        category: "Aksesoris",
-        desc: "Konektor masker payet pearl grade A dengan pengait masker fleksibel.",
-        modal: 8000,
-        mainImage: "photo_161@24-01-2022_14-57-59.jpg",
-        gallery: ["photo_161@24-01-2022_14-57-59.jpg"],
-        variants: ["Pearl Edition"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: ""
-      },
-      {
-        id: "p-57",
-        name: "Mask Chain",
-        category: "Aksesoris",
-        desc: "Rantai masker stainless dan mutiara grade A multifungsi sebagai mask extender.",
-        modal: 12000,
-        mainImage: "photo_163@24-01-2022_14-58-22.jpg",
-        gallery: ["photo_163@24-01-2022_14-58-22.jpg"],
-        variants: ["Model A", "Model B", "Model C", "Model P"],
-        isDiscontinue: true,
-        featured: false,
-        driveUrl: "https://drive.google.com/drive/folders/1-uHRDAnZiOnav95W-xOWV7mR-u5h81_4"
-      }
-    ];
+  {
+    "id": "p-01",
+    "name": "Inner rajut",
+    "category": "Kerudung",
+    "desc": "Inner rajut anti pusing, elastis, lembut, dan sejuk seharian di kepala.",
+    "modal": 12150,
+    "mainImage": "photo_253@03-02-2022_15-28-31.jpg",
+    "gallery": [
+      "photo_253@03-02-2022_15-28-31.jpg",
+      "photo_254@03-02-2022_15-28-47.jpg",
+      "photo_255@03-02-2022_15-29-25.jpg",
+      "photo_256@03-02-2022_15-30-29.jpg"
+    ],
+    "variants": [
+      "Army",
+      "Black",
+      "Dark Grey",
+      "Denim",
+      "Dusty Pink",
+      "Milo",
+      "Mocca",
+      "Navy",
+      "Silver"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-02",
+    "name": "Poton square",
+    "category": "Kerudung",
+    "desc": "Hijab segiempat pollycotton premium, tegak di dahi dan rapi.",
+    "modal": 20250,
+    "mainImage": "photo_79@22-01-2022_14-05-49.jpg",
+    "gallery": [
+      "photo_79@22-01-2022_14-05-49.jpg",
+      "photo_80@22-01-2022_14-05-55.jpg",
+      "photo_81@22-01-2022_14-06-03.jpg",
+      "photo_82@22-01-2022_14-06-12.jpg"
+    ],
+    "variants": [
+      "Army",
+      "Black",
+      "Clay",
+      "Cookie",
+      "Dusty Blue",
+      "Khaki",
+      "Latte",
+      "Mocca",
+      "Navy"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-03",
+    "name": "Scrunchie",
+    "category": "Aksesoris",
+    "desc": "Ikat rambut diamond stretch penambah volume hijab natural tanpa bikin pusing.",
+    "modal": 8100,
+    "mainImage": "photo_159@24-01-2022_14-55-11.jpg",
+    "gallery": [
+      "photo_159@24-01-2022_14-55-11.jpg",
+      "photo_160@24-01-2022_14-55-12.jpg"
+    ],
+    "variants": [
+      "Mix Warna"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-04",
+    "name": "Yoona skirt",
+    "category": "Pakaian Bawah",
+    "desc": "Rok A-line flowy cerutty babydoll dengan furing lengkap dan karet pinggang.",
+    "modal": 52560,
+    "mainImage": "photo_196@24-01-2022_15-21-57.jpg",
+    "gallery": [
+      "photo_196@24-01-2022_15-21-57.jpg",
+      "photo_197@24-01-2022_15-22-08.jpg",
+      "photo_198@24-01-2022_15-22-18.jpg",
+      "photo_200@24-01-2022_15-22-37.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Khaki",
+      "Mocca",
+      "Sand",
+      "White"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-05",
+    "name": "Paris square",
+    "category": "Kerudung",
+    "desc": "Segiempat paris voal tegak di dahi, tidak licin dan finishing jahit tepi kecil.",
+    "modal": 29970,
+    "mainImage": "photo_305@09-02-2022_16-28-23.jpg",
+    "gallery": [
+      "photo_305@09-02-2022_16-28-23.jpg",
+      "photo_306@09-02-2022_16-28-23.jpg",
+      "photo_387@30-05-2022_10-03-29.jpg",
+      "photo_388@30-05-2022_10-04-05.jpg"
+    ],
+    "variants": [
+      "Army",
+      "Black",
+      "Broken White",
+      "Butter",
+      "Choco",
+      "Latte",
+      "Milo",
+      "Sand"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-06",
+    "name": "Sunny skirt",
+    "category": "Pakaian Bawah",
+    "desc": "Rok cerutty babydoll dengan furing lengkap dan karet pinggang nyaman.",
+    "modal": 61200,
+    "mainImage": "photo_379@02-05-2022_23-12-06.jpg",
+    "gallery": [
+      "photo_379@02-05-2022_23-12-06.jpg",
+      "photo_380@02-05-2022_23-12-06.jpg",
+      "photo_381@02-05-2022_23-12-06.jpg",
+      "photo_404@08-06-2022_11-48-16.jpg"
+    ],
+    "variants": [
+      "Khaki",
+      "Mocca",
+      "Mustard",
+      "Sage Green"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-07",
+    "name": "Jennie Inner",
+    "category": "Pakaian Atas",
+    "desc": "Inner hornet knit bertekstur lembut, elastis, menyerap keringat dan adem.",
+    "modal": 32400,
+    "mainImage": "photo_445@27-09-2022_15-59-35.jpg",
+    "gallery": [
+      "photo_445@27-09-2022_15-59-35.jpg",
+      "photo_446@13-10-2022_11-35-59.jpg",
+      "photo_447@13-10-2022_11-35-59.jpg",
+      "photo_448@13-10-2022_11-35-59.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Creamy Sage",
+      "Grey",
+      "Mocca",
+      "Olive"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-08",
+    "name": "Jisoo Inner Knit",
+    "category": "Pakaian Atas",
+    "desc": "Inner knit turtle neck bertekstur halus, stretch mewah dan elegan untuk layering.",
+    "modal": 38160,
+    "mainImage": "photo_464@05-11-2022_16-13-16.jpg",
+    "gallery": [
+      "photo_464@05-11-2022_16-13-16.jpg",
+      "photo_465@05-11-2022_16-13-22.jpg",
+      "photo_466@05-11-2022_16-13-31.jpg",
+      "photo_467@05-11-2022_16-13-35.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Creamy Sage",
+      "Cream",
+      "Mocca",
+      "Dark Grey"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-09",
+    "name": "Tiffany Shirt",
+    "category": "Pakaian Atas",
+    "desc": "Kemeja crinkle airflow flowy dan ironless dengan kancing hidup full sampai bawah.",
+    "modal": 61200,
+    "mainImage": "photo_468@11-11-2022_09-09-46.jpg",
+    "gallery": [
+      "photo_468@11-11-2022_09-09-46.jpg",
+      "photo_470@11-11-2022_09-09-53.jpg",
+      "photo_471@11-11-2022_09-10-01.jpg",
+      "photo_472@11-11-2022_09-10-08.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Dusty Purple",
+      "Mint",
+      "Nude"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-10",
+    "name": "Jennie One Set",
+    "category": "Pakaian Atas",
+    "desc": "Setelan atasan oversized dan kulot hornet knit yang elastis dan nyaman.",
+    "modal": 123840,
+    "mainImage": "photo_529@01-03-2023_20-03-07.jpg",
+    "gallery": [
+      "photo_529@01-03-2023_20-03-07.jpg",
+      "photo_508@19-01-2023_08-03-19.jpg",
+      "photo_509@19-01-2023_08-03-42.jpg",
+      "photo_510@19-01-2023_08-04-05.jpg"
+    ],
+    "variants": [
+      "Sage",
+      "Olive",
+      "Black",
+      "Cream",
+      "Mocca"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-11",
+    "name": "Minji Skirt",
+    "category": "Pakaian Bawah",
+    "desc": "Rok flowy crinkle airflow ironless dengan resleting belakang dan furing putih.",
+    "modal": 64080,
+    "mainImage": "photo_511@01-02-2023_13-38-01.jpg",
+    "gallery": [
+      "photo_511@01-02-2023_13-38-01.jpg",
+      "photo_512@01-02-2023_13-38-01.jpg",
+      "photo_513@01-02-2023_13-38-01.jpg",
+      "photo_515@01-02-2023_13-43-57.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Dusty Purple",
+      "Nude",
+      "Sage",
+      "Latte"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-12",
+    "name": "Hanni One Set",
+    "category": "Pakaian Atas",
+    "desc": "Setelan atasan dan rok hornet knit strechy, lembut dan stylish.",
+    "modal": 105120,
+    "mainImage": "photo_530@02-03-2023_21-50-05.jpg",
+    "gallery": [
+      "photo_530@02-03-2023_21-50-05.jpg",
+      "photo_531@02-03-2023_21-50-15.jpg",
+      "photo_532@02-03-2023_21-50-25.jpg",
+      "photo_533@02-03-2023_21-51-27.jpg"
+    ],
+    "variants": [
+      "Army",
+      "Olive",
+      "Sage",
+      "Cream",
+      "Creamy Sage",
+      "Black"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-13",
+    "name": "Pashmina Jersey Kaos",
+    "category": "Kerudung",
+    "desc": "Pashmina jersey kaos stretch import, jatuh dingin di kepala tanpa perlu jarum pentul.",
+    "modal": 39690,
+    "mainImage": "photo_526@23-02-2023_13-32-38.jpg",
+    "gallery": [
+      "photo_526@23-02-2023_13-32-38.jpg",
+      "photo_527@23-02-2023_13-32-41.jpg",
+      "photo_528@23-02-2023_13-32-44.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Dark Grey",
+      "Grey",
+      "Ivory",
+      "Khaki",
+      "Nutella",
+      "Walnut"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-14",
+    "name": "Lisa Dress",
+    "category": "Pakaian Atas",
+    "desc": "Dress knit hornet berkerah dengan lengan puffy wudhu friendly dan rok lebar.",
+    "modal": 107280,
+    "mainImage": "photo_549@10-04-2023_10-15-35.jpg",
+    "gallery": [
+      "photo_549@10-04-2023_10-15-35.jpg",
+      "photo_553@12-04-2023_15-21-53.jpg",
+      "photo_554@12-04-2023_15-21-59.jpg",
+      "photo_555@12-04-2023_15-22-02.jpg"
+    ],
+    "variants": [
+      "Black",
+      "BW",
+      "Cream",
+      "Creamy Sage",
+      "Mocca",
+      "Sage"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-15",
+    "name": "Dress Kids",
+    "category": "Pakaian Atas",
+    "desc": "Gaun anak berbahan knit hornet lembut, elastis dan nyaman untuk bergerak.",
+    "modal": 56880,
+    "mainImage": "photo_548@10-04-2023_10-13-02.jpg",
+    "gallery": [
+      "photo_548@10-04-2023_10-13-02.jpg",
+      "photo_550@10-04-2023_10-16-30.jpg",
+      "photo_551@10-04-2023_10-17-10.jpg",
+      "photo_557@03-05-2023_18-54-36.jpg"
+    ],
+    "variants": [
+      "Black",
+      "BW",
+      "Cream",
+      "Creamy Sage",
+      "Mocca",
+      "Sage"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-16",
+    "name": "Havana Top",
+    "category": "Pakaian Atas",
+    "desc": "Atasan havana knit batwing flowy bertekstur salur elegan yang tidak menerawang.",
+    "modal": 64080,
+    "mainImage": "photo_563@06-07-2023_09-56-25.jpg",
+    "gallery": [
+      "photo_563@06-07-2023_09-56-25.jpg",
+      "photo_564@06-07-2023_09-57-05.jpg",
+      "photo_565@06-07-2023_09-57-42.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Dark Grey",
+      "Peanut",
+      "Sage",
+      "Sand"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-17",
+    "name": "Scrunchie Mini",
+    "category": "Aksesoris",
+    "desc": "Kunciran mini knit hornet ringan anti pusing untuk cepolan hijab sehari-hari.",
+    "modal": 4860,
+    "mainImage": "photo_566@01-09-2023_10-20-58.jpg",
+    "gallery": [
+      "photo_566@01-09-2023_10-20-58.jpg",
+      "photo_567@01-09-2023_10-20-58.jpg"
+    ],
+    "variants": [
+      "Random Mix Color"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-18",
+    "name": "Gia Cardigan",
+    "category": "Pakaian Atas",
+    "desc": "Cardigan rib knit semi crop top beraksen kriwil neci manis dan kancing elegan.",
+    "modal": 46800,
+    "mainImage": "photo_586@25-10-2023_09-32-48.jpg",
+    "gallery": [
+      "photo_586@25-10-2023_09-32-48.jpg",
+      "photo_587@25-10-2023_09-32-54.jpg",
+      "photo_588@25-10-2023_09-33-02.jpg",
+      "photo_590@25-10-2023_09-33-29.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Cream",
+      "Dark Grey",
+      "Latte",
+      "Misty",
+      "Khaki"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-19",
+    "name": "Basic Inner Kaos",
+    "category": "Pakaian Atas",
+    "desc": "Manset katun combed 30s premium adem, menyerap keringat dan tidak menerawang.",
+    "modal": 35000,
+    "mainImage": "photo_568@02-10-2023_15-38-07.jpg",
+    "gallery": [
+      "photo_568@02-10-2023_15-38-07.jpg",
+      "photo_569@02-10-2023_15-38-18.jpg",
+      "photo_570@02-10-2023_15-38-24.jpg",
+      "photo_572@02-10-2023_15-38-35.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Cream",
+      "Dusty Blue",
+      "Sage",
+      "Terracotta"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-20",
+    "name": "Inner Ciput Jersey Kaos",
+    "category": "Kerudung",
+    "desc": "Ciput ninja jersey fleksibel, pas menempel nyaman di kepala tanpa menekan telinga.",
+    "modal": 15390,
+    "mainImage": "photo_575@02-10-2023_15-41-00.jpg",
+    "gallery": [
+      "photo_575@02-10-2023_15-41-00.jpg",
+      "photo_576@02-10-2023_15-41-08.jpg",
+      "photo_577@02-10-2023_15-41-14.jpg",
+      "photo_578@02-10-2023_15-41-20.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Grey",
+      "Ivory",
+      "Khaki",
+      "Nutella"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-21",
+    "name": "Belle Pants",
+    "category": "Pakaian Bawah",
+    "desc": "Celana katun stretch semi cutbray dengan saku samping dan karet pinggang belakang.",
+    "modal": 66960,
+    "mainImage": "photo_580@12-10-2023_10-32-55.jpg",
+    "gallery": [
+      "photo_580@12-10-2023_10-32-55.jpg",
+      "photo_581@12-10-2023_10-33-09.jpg",
+      "photo_582@12-10-2023_10-33-21.jpg",
+      "photo_583@12-10-2023_10-33-34.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Caramel",
+      "Nude",
+      "Silver",
+      "Stone"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-22",
+    "name": "Yuri Set",
+    "category": "Pakaian Atas",
+    "desc": "Setelan atasan 7/8 dan rok midi berbahan linen grade A adem bertekstur jelas.",
+    "modal": 128000,
+    "mainImage": "astakara-067.JPG",
+    "gallery": [
+      "astakara-067.JPG",
+      "astakara-079.JPG",
+      "astakara-036.JPG",
+      "astakara-046.JPG",
+      "astakara-036.JPG",
+      "astakara-022.JPG",
+      "astakara-001.JPG"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Cream",
+      "Dark Grey",
+      "Khaki",
+      "Latte",
+      "Mocca"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-23",
+    "name": "Nami Cardigan",
+    "category": "Pakaian Atas",
+    "desc": "Cardigan rib knit grade A tebal halus dengan tepi neci dan pilihan model crop/long.",
+    "modal": 49680,
+    "mainImage": "photo_638@24-08-2024_12-07-59.jpg",
+    "gallery": [
+      "photo_638@24-08-2024_12-07-59.jpg",
+      "photo_639@24-08-2024_12-08-26.jpg",
+      "photo_640@24-08-2024_12-08-44.jpg",
+      "photo_641@24-08-2024_12-08-56.jpg"
+    ],
+    "variants": [
+      "Black Crop",
+      "DGrey Long",
+      "Emerald Crop",
+      "Emerald Long",
+      "Maroon Long"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-24",
+    "name": "Stripy Cardigan",
+    "category": "Pakaian Atas",
+    "desc": "Outer cardigan rajut bermotif garis horizontal klasik vintage Parisian look.",
+    "modal": 42480,
+    "mainImage": "photo_607@24-05-2024_11-08-23.jpg",
+    "gallery": [
+      "photo_607@24-05-2024_11-08-23.jpg",
+      "photo_608@24-05-2024_11-08-36.jpg",
+      "photo_609@24-05-2024_11-08-47.jpg",
+      "photo_610@24-05-2024_11-09-04.jpg"
+    ],
+    "variants": [
+      "Black Stripe",
+      "Navy Stripe",
+      "Choco Stripe"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-25",
+    "name": "Gia Cardigan Kids",
+    "category": "Pakaian Atas",
+    "desc": "Versi anak Gia Cardigan favorit dengan potongan semi crop dan rajutan halus.",
+    "modal": 39600,
+    "mainImage": "photo_611@20-06-2024_09-15-59.jpg",
+    "gallery": [
+      "photo_611@20-06-2024_09-15-59.jpg",
+      "photo_612@20-06-2024_09-15-59.jpg",
+      "photo_613@20-06-2024_09-15-59.jpg",
+      "photo_615@20-06-2024_09-16-00.jpg"
+    ],
+    "variants": [
+      "Soft Peach",
+      "Dusty Blue",
+      "Mint",
+      "Cream"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-26",
+    "name": "Gia Long",
+    "category": "Pakaian Atas",
+    "desc": "Long cardigan rib knit flowy dengan aksen kriwil rapi, modest dan nyaman.",
+    "modal": 54000,
+    "mainImage": "photo_625@15-07-2024_19-00-57.jpg",
+    "gallery": [
+      "photo_625@15-07-2024_19-00-57.jpg",
+      "photo_626@15-07-2024_19-01-12.jpg",
+      "photo_627@15-07-2024_19-01-23.jpg",
+      "photo_631@15-07-2024_19-02-03.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Charcoal",
+      "Cream",
+      "Dusty Blue",
+      "Dark Grey",
+      "Khaki"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-27",
+    "name": "Jeju Top",
+    "category": "Pakaian Atas",
+    "desc": "Blouse santai cotton combed 30s adem dengan aksen drop shoulder yang stylish.",
+    "modal": 71280,
+    "mainImage": "photo_643@30-08-2024_21-12-15.jpg",
+    "gallery": [
+      "photo_643@30-08-2024_21-12-15.jpg",
+      "photo_644@30-08-2024_21-12-27.jpg",
+      "photo_645@30-08-2024_21-12-39.jpg",
+      "photo_646@30-08-2024_21-12-50.jpg"
+    ],
+    "variants": [
+      "Broken White",
+      "Lilac Grey",
+      "Warm Tan"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-28",
+    "name": "Yejin Skirt",
+    "category": "Pakaian Bawah",
+    "desc": "Rok rib knit cutting mermaid dengan ban pinggang seamless yang minimalist.",
+    "modal": 54000,
+    "mainImage": "photo_647@30-08-2024_21-17-27.jpg",
+    "gallery": [
+      "photo_647@30-08-2024_21-17-27.jpg",
+      "photo_648@30-08-2024_21-17-33.jpg",
+      "photo_649@30-08-2024_21-17-42.jpg",
+      "photo_651@30-08-2024_21-17-57.jpg"
+    ],
+    "variants": [
+      "Cream",
+      "Khaki",
+      "Denim",
+      "Emerald",
+      "Mocca",
+      "Black",
+      "Charcoal"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-29",
+    "name": "Voal Shawl",
+    "category": "Kerudung",
+    "desc": "Pashmina arabian voile lembut, tidak terlalu tebal dan tidak gerah dipakai.",
+    "modal": 39690,
+    "mainImage": "photo_660@09-09-2024_07-46-22.jpg",
+    "gallery": [
+      "photo_660@09-09-2024_07-46-22.jpg",
+      "photo_661@09-09-2024_07-46-35.jpg",
+      "photo_662@09-09-2024_07-46-49.jpg",
+      "photo_665@09-09-2024_07-47-31.jpg"
+    ],
+    "variants": [
+      "Wood",
+      "Dark Mauve",
+      "Stone",
+      "Celery",
+      "Almond",
+      "Beige",
+      "Candy",
+      "Cream"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-30",
+    "name": "Eunji Top",
+    "category": "Pakaian Atas",
+    "desc": "Atasan rib knit batwing leher O-neck flowy dan wudhu friendly, ringan dan adem.",
+    "modal": 61200,
+    "mainImage": "photo_675@08-11-2024_14-19-28.jpg",
+    "gallery": [
+      "photo_675@08-11-2024_14-19-28.jpg",
+      "photo_676@08-11-2024_14-19-42.jpg",
+      "photo_677@08-11-2024_14-19-59.jpg",
+      "photo_679@08-11-2024_14-22-50.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Broken White",
+      "Burgundy",
+      "Charcoal",
+      "Cream",
+      "Dark Choco",
+      "Denim"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-31",
+    "name": "Aira Vest",
+    "category": "Pakaian Atas",
+    "desc": "Vest katun bordir floral breathable dengan bukaan tali samping dan kerah V-neck.",
+    "modal": 78480,
+    "mainImage": "photo_730@09-01-2026_11-30-39.jpg",
+    "gallery": [
+      "photo_730@09-01-2026_11-30-39.jpg",
+      "photo_731@09-01-2026_11-30-54.jpg",
+      "photo_732@09-01-2026_11-31-11.jpg",
+      "photo_733@09-01-2026_11-31-36.jpg"
+    ],
+    "variants": [
+      "Cream",
+      "Celery",
+      "Sky",
+      "Peach",
+      "Broken White"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-32",
+    "name": "Haerin Skirt",
+    "category": "Pakaian Bawah",
+    "desc": "Panel flare skirt A-line yang melangsingkan dengan detail sablon bunga anggun.",
+    "modal": 85680,
+    "mainImage": "photo_693@15-04-2025_11-19-44.jpg",
+    "gallery": [
+      "photo_693@15-04-2025_11-19-44.jpg",
+      "photo_694@15-04-2025_11-19-52.jpg",
+      "photo_695@15-04-2025_11-20-00.jpg",
+      "photo_696@15-04-2025_11-20-09.jpg"
+    ],
+    "variants": [
+      "Burgundy",
+      "Black",
+      "Charcoal",
+      "Beige",
+      "Dark Choco",
+      "Mocca"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-33",
+    "name": "Soft Paris",
+    "category": "Kerudung",
+    "desc": "Hijab segiempat paris jadul legend, ironless, tepi jahit rapi dan tegak di dahi.",
+    "modal": 20250,
+    "mainImage": "1.png",
+    "gallery": [
+      "1.png",
+      "2.png",
+      "3.png",
+      "15.png",
+      "DON00267.jpg",
+      "DON00314.jpg",
+      "DON00326.jpg",
+      "DON00401.jpg"
+    ],
+    "variants": [
+      "Khaki",
+      "Sage",
+      "Denim",
+      "Maroon",
+      "Dusty Pink"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-34",
+    "name": "Haerin Top",
+    "category": "Pakaian Atas",
+    "desc": "Atasan katun combed lembut dengan drop shoulder dan belahan samping yang leluasa.",
+    "modal": 71280,
+    "mainImage": "DSCF0862.JPG",
+    "gallery": [
+      "DSCF0862.JPG",
+      "DSCF1072 2.JPG",
+      "IMG_8645.HEIC",
+      "IMG_8648.HEIC"
+    ],
+    "variants": [
+      "White",
+      "Black",
+      "Stone",
+      "Olive"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-35",
+    "name": "Sora Top",
+    "category": "Pakaian Atas",
+    "desc": "Top cotton rib knit dengan drapery kerut bahu yang proporsional dan flowy.",
+    "modal": 71280,
+    "mainImage": "photo_701@24-07-2025_13-58-46.jpg",
+    "gallery": [
+      "photo_701@24-07-2025_13-58-46.jpg",
+      "photo_702@24-07-2025_13-59-21.jpg",
+      "photo_703@24-07-2025_13-59-33.jpg",
+      "photo_704@24-07-2025_13-59-41.jpg"
+    ],
+    "variants": [
+      "Charcoal",
+      "Dark Grey",
+      "Misty",
+      "Cream"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-36",
+    "name": "Nari Dress",
+    "category": "Pakaian Atas",
+    "desc": "Gamis cotton combed 24s loose melebar ke bawah yang adem dan fit all body type.",
+    "modal": 95000,
+    "mainImage": "photo_705@24-09-2025_14-44-27.jpg",
+    "gallery": [
+      "photo_705@24-09-2025_14-44-27.jpg",
+      "photo_706@24-09-2025_14-44-35.jpg",
+      "photo_707@24-09-2025_14-44-41.jpg",
+      "photo_708@24-09-2025_14-44-49.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Charcoal",
+      "Mocca",
+      "Dark Choco",
+      "Beige",
+      "Caramel"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-37",
+    "name": "Babydoll shawl",
+    "category": "Kerudung",
+    "desc": "Pashmina cerutty babydoll bertekstur pasir halus dan flowy saat dipakai.",
+    "modal": 30600,
+    "mainImage": "photo_32@21-01-2022_15-09-56.jpg",
+    "gallery": [
+      "photo_32@21-01-2022_15-09-56.jpg",
+      "photo_33@21-01-2022_15-10-09.jpg",
+      "photo_34@21-01-2022_15-10-16.jpg"
+    ],
+    "variants": [
+      "Army",
+      "Beige",
+      "Black",
+      "Choco",
+      "Lilac",
+      "Mocca",
+      "Sand"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-38",
+    "name": "Crinkle shawl",
+    "category": "Kerudung",
+    "desc": "Pashmina katun crinkle rawis tanpa perlu disetrika, praktis dan tebal.",
+    "modal": 32300,
+    "mainImage": "photo_223@24-01-2022_15-26-33.jpg",
+    "gallery": [
+      "photo_223@24-01-2022_15-26-33.jpg",
+      "photo_224@24-01-2022_15-26-41.jpg",
+      "photo_225@24-01-2022_15-26-47.jpg"
+    ],
+    "variants": [
+      "Army",
+      "Black",
+      "Choco",
+      "Cupcake",
+      "Grape",
+      "Peanut",
+      "Sand"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-39",
+    "name": "Ruby pashmina inner",
+    "category": "Kerudung",
+    "desc": "Pashmina 2-in-1 cerutty babydoll langsung menyatu dengan ciput kaos anti ribet.",
+    "modal": 34850,
+    "mainImage": "photo_351@09-03-2022_11-05-08.jpg",
+    "gallery": [
+      "photo_351@09-03-2022_11-05-08.jpg",
+      "photo_352@09-03-2022_11-05-30.jpg",
+      "photo_353@09-03-2022_11-06-08.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Beige",
+      "Blush",
+      "Almond",
+      "Greentea",
+      "Cookie"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-40",
+    "name": "Grace Square Inner",
+    "category": "Kerudung",
+    "desc": "Hijab segi empat cerutty babydoll yang sudah menyatu dengan inner ciput kaos.",
+    "modal": 41650,
+    "mainImage": "photo_433@28-07-2022_10-01-39.jpg",
+    "gallery": [
+      "photo_433@28-07-2022_10-01-39.jpg",
+      "photo_434@28-07-2022_10-02-13.jpg",
+      "photo_435@28-07-2022_10-02-45.jpg"
+    ],
+    "variants": [
+      "Greentea",
+      "Black",
+      "Blush",
+      "Almond",
+      "Choco",
+      "Mocca",
+      "Navy"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-41",
+    "name": "Mina Khirmar Pad",
+    "category": "Kerudung",
+    "desc": "Khimar syar'i crinkle airflow ber-pad busa rapi yang menutupi dada sempurna.",
+    "modal": 33150,
+    "mainImage": "photo_536@11-03-2023_11-19-11.jpg",
+    "gallery": [
+      "photo_536@11-03-2023_11-19-11.jpg",
+      "photo_537@24-03-2023_07-17-10.jpg",
+      "photo_538@24-03-2023_07-18-19.jpg",
+      "photo_539@24-03-2023_07-18-35.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Caramel",
+      "Stone",
+      "Mauve",
+      "Khaki",
+      "Ivory",
+      "Nutella"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-42",
+    "name": "Seojin Pants",
+    "category": "Pakaian Bawah",
+    "desc": "Celana katun stripe loose highwaist dengan pinggang full karet dan saku samping.",
+    "modal": 64080,
+    "mainImage": "photo_711@20-10-2025_11-45-33.jpg",
+    "gallery": [
+      "photo_711@20-10-2025_11-45-33.jpg",
+      "photo_712@20-10-2025_11-45-44.jpg",
+      "photo_713@20-10-2025_11-46-06.jpg",
+      "photo_715@20-10-2025_11-46-26.jpg"
+    ],
+    "variants": [
+      "White",
+      "Baby Yellow",
+      "Dusty Blue",
+      "Milo",
+      "Black",
+      "Beige"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-43",
+    "name": "Haru Inner",
+    "category": "Pakaian Atas",
+    "desc": "Inner sleeveless cotton combed adem dengan detail kerut ruffle A-line bawah.",
+    "modal": 56880,
+    "mainImage": "photo_717@13-11-2025_11-05-45.jpg",
+    "gallery": [
+      "photo_717@13-11-2025_11-05-45.jpg",
+      "photo_718@13-11-2025_11-05-55.jpg",
+      "photo_719@13-11-2025_11-06-08.jpg",
+      "photo_720@13-11-2025_11-06-19.jpg"
+    ],
+    "variants": [
+      "Baby Yellow",
+      "Almond",
+      "Broken White",
+      "Black",
+      "Dark Choco",
+      "Caramel"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-44",
+    "name": "Miyu Top",
+    "category": "Pakaian Atas",
+    "desc": "Atasan katun combed lengan kerut wudhu friendly dengan detail ruffle bawah feminin.",
+    "modal": 71280,
+    "mainImage": "photo_723@17-12-2025_11-39-31.jpg",
+    "gallery": [
+      "photo_723@17-12-2025_11-39-31.jpg",
+      "photo_724@17-12-2025_11-39-47.jpg",
+      "photo_725@17-12-2025_11-40-00.jpg",
+      "photo_726@17-12-2025_11-40-13.jpg"
+    ],
+    "variants": [
+      "Milo",
+      "Dark Choco",
+      "Caramel",
+      "Black",
+      "Seafoam",
+      "Dusty Pink"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-45",
+    "name": "Seori Outer",
+    "category": "Pakaian Atas",
+    "desc": "Outer nylon texture motif bunga dengan 3 tali depan aksen manis dan lengan wudhu friendly.",
+    "modal": 118150,
+    "mainImage": "photo_730@09-01-2026_11-30-39.jpg",
+    "gallery": [
+      "photo_730@09-01-2026_11-30-39.jpg",
+      "photo_731@09-01-2026_11-30-54.jpg"
+    ],
+    "variants": [
+      "Cream",
+      "Celery",
+      "Sky",
+      "Peach"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-46",
+    "name": "Jangmi Vest",
+    "category": "Pakaian Atas",
+    "desc": "Vest tencel lyocell bordir asimetris dengan tali pengatur di belakang dan bukaan kancing.",
+    "modal": 92880,
+    "mainImage": "photo_730@09-01-2026_11-30-39.jpg",
+    "gallery": [
+      "photo_730@09-01-2026_11-30-39.jpg",
+      "photo_734@09-01-2026_11-34-08.jpg",
+      "photo_735@09-01-2026_11-37-43.jpg"
+    ],
+    "variants": [
+      "Broken White",
+      "Sky",
+      "Peach",
+      "Celery",
+      "Cream"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-47",
+    "name": "Viscose Shawl",
+    "category": "Kerudung",
+    "desc": "Pashmina viscose modal crinkle natural, super flowy dan mewah saat di-drape.",
+    "modal": 47790,
+    "mainImage": "photo_740@19-02-2026_13-36-50.jpg",
+    "gallery": [
+      "photo_740@19-02-2026_13-36-50.jpg",
+      "photo_741@19-02-2026_13-36-56.jpg",
+      "photo_742@19-02-2026_13-37-04.jpg"
+    ],
+    "variants": [
+      "Dark Choco",
+      "Black",
+      "Cream"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-48",
+    "name": "Yura Tunik",
+    "category": "Pakaian Atas",
+    "desc": "Tunik katun combed 24s A-line dengan belahan depan dan aksen lipatan lengan rapi.",
+    "modal": 100080,
+    "mainImage": "photo_744@06-05-2026_11-00-22.jpg",
+    "gallery": [
+      "photo_744@06-05-2026_11-00-22.jpg",
+      "photo_745@06-05-2026_11-00-31.jpg",
+      "photo_746@06-05-2026_11-00-50.jpg",
+      "photo_747@06-05-2026_11-02-01.jpg"
+    ],
+    "variants": [
+      "Black",
+      "Caramel",
+      "Dark Choco",
+      "Peanut",
+      "Vanilla",
+      "Sand",
+      "Olive"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-49",
+    "name": "Darin Tunik",
+    "category": "Pakaian Atas",
+    "desc": "Tunik katun bordir A-line dengan resleting tersembunyi dan kelepak memanjang anggun.",
+    "modal": 98000,
+    "mainImage": "photo_752@18-05-2026_11-34-27.jpg",
+    "gallery": [
+      "photo_752@18-05-2026_11-34-27.jpg",
+      "photo_753@18-05-2026_11-35-13.jpg",
+      "photo_754@18-05-2026_11-35-29.jpg",
+      "photo_755@18-05-2026_11-35-45.jpg"
+    ],
+    "variants": [
+      "Oat",
+      "Latte",
+      "Black",
+      "Broken White",
+      "Burgundy",
+      "Dark Choco",
+      "Dusty"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-50",
+    "name": "Ara Tunik",
+    "category": "Pakaian Atas",
+    "desc": "Tunik cotton mix poly bordir bunga dengan bukaan kancing depan busui dan tali belakang.",
+    "modal": 98000,
+    "mainImage": "photo_763@18-05-2026_13-20-19.jpg",
+    "gallery": [
+      "photo_763@18-05-2026_13-20-19.jpg",
+      "photo_764@18-05-2026_13-20-36.jpg",
+      "photo_765@18-05-2026_13-20-53.jpg",
+      "photo_767@18-05-2026_13-21-19.jpg"
+    ],
+    "variants": [
+      "Black - Motif 1",
+      "Denim - Motif 1",
+      "Cream - Motif 1",
+      "Rose Pink - Motif 1"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-51",
+    "name": "Hana Tunik",
+    "category": "Pakaian Atas",
+    "desc": "Tunik nylon tekstur A-line dengan kancing belakang manis dan tali ikat multifungsi.",
+    "modal": 98000,
+    "mainImage": "photo_774@18-05-2026_13-36-31.jpg",
+    "gallery": [
+      "photo_774@18-05-2026_13-36-31.jpg",
+      "photo_775@18-05-2026_13-36-44.jpg",
+      "photo_776@18-05-2026_13-37-08.jpg",
+      "photo_778@18-05-2026_13-37-50.jpg"
+    ],
+    "variants": [
+      "Oat - Motif 2",
+      "Salmon - Motif 2",
+      "Oat - Motif 1",
+      "Black - Motif 2"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-52",
+    "name": "Rora Skirt",
+    "category": "Pakaian Bawah",
+    "desc": "Rok A-line motif polkadot bahan soft flowy dengan furing penuh dan saku kanan.",
+    "modal": 82000,
+    "mainImage": "photo_782@09-06-2026_14-41-19.jpg",
+    "gallery": [
+      "photo_782@09-06-2026_14-41-19.jpg",
+      "photo_783@09-06-2026_14-41-38.jpg",
+      "photo_784@09-06-2026_14-41-48.jpg",
+      "photo_785@09-06-2026_14-42-00.jpg"
+    ],
+    "variants": [
+      "Cherry",
+      "Cream",
+      "Mahogany",
+      "Butter"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-53",
+    "name": "Miyori Inner",
+    "category": "Pakaian Atas",
+    "desc": "Inner mix poly sleeveless dengan ruffle lembut di pinggul, siluet A-line seimbang.",
+    "modal": 42000,
+    "mainImage": "photo_795@08-09-2026_11-18-38.jpg",
+    "gallery": [
+      "photo_795@08-09-2026_11-18-38.jpg",
+      "photo_796@08-09-2026_11-18-49.jpg",
+      "photo_797@08-09-2026_11-18-58.jpg",
+      "photo_799@08-09-2026_11-19-17.jpg"
+    ],
+    "variants": [
+      "Butter",
+      "Cherry",
+      "Cream",
+      "Mahogany",
+      "Black"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-54",
+    "name": "Yuha Top",
+    "category": "Pakaian Atas",
+    "desc": "Atasan katun combed loose fit dengan layer polkadot dan manset polkadot lengan manis.",
+    "modal": 70000,
+    "mainImage": "photo_789@08-09-2026_11-07-12.jpg",
+    "gallery": [
+      "photo_789@08-09-2026_11-07-12.jpg",
+      "photo_790@08-09-2026_11-07-22.jpg",
+      "photo_791@08-09-2026_11-07-35.jpg",
+      "photo_792@08-09-2026_11-07-45.jpg"
+    ],
+    "variants": [
+      "Dusty Pink",
+      "Dark Choco",
+      "Broken White",
+      "Black",
+      "Almond"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-55",
+    "name": "Seojin Polka Pants",
+    "category": "Pakaian Bawah",
+    "desc": "Celana katun poplin motif polkadot loose fit highwaist dengan pinggang karet elastis.",
+    "modal": 85000,
+    "mainImage": "photo_786@08-09-2026_10-59-51.jpg",
+    "gallery": [
+      "photo_786@08-09-2026_10-59-51.jpg",
+      "photo_787@08-09-2026_11-00-01.jpg",
+      "photo_788@08-09-2026_11-00-14.jpg"
+    ],
+    "variants": [
+      "Mahogany",
+      "Cream",
+      "Black"
+    ],
+    "isDiscontinue": false,
+    "featured": true
+  },
+  {
+    "id": "p-56",
+    "name": "Mask Extender",
+    "category": "Aksesoris",
+    "desc": "Konektor masker payet pearl grade A dengan pengait masker fleksibel.",
+    "modal": 8000,
+    "mainImage": "photo_161@24-01-2022_14-57-59.jpg",
+    "gallery": [
+      "photo_161@24-01-2022_14-57-59.jpg"
+    ],
+    "variants": [
+      "Pearl Edition"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  },
+  {
+    "id": "p-57",
+    "name": "Mask Chain",
+    "category": "Aksesoris",
+    "desc": "Rantai masker stainless dan mutiara grade A multifungsi sebagai mask extender.",
+    "modal": 12000,
+    "mainImage": "photo_163@24-01-2022_14-58-22.jpg",
+    "gallery": [
+      "photo_163@24-01-2022_14-58-22.jpg"
+    ],
+    "variants": [
+      "Model A",
+      "Model B",
+      "Model C",
+      "Model P"
+    ],
+    "isDiscontinue": false,
+    "featured": false
+  }
+];
 
     // PROSES SEMUA PRODUK: SET HARGA JUAL DAN PATH IMAGES RATA DI images/[nama-file]
     const PRODUCTS = RAW_PRODUCTS.map((p) => {
@@ -1473,41 +2086,151 @@
     let currentSearch = "";
     let currentSort = "newest";
 
+    // STATE DETAIL PRODUK (SPA)
+    let currentDetailProduct = null;
+    let currentDetailVariant = "";
+    let currentDetailPhotoIndex = 0;
+
     // GENERATE PESAN WHATSAPP
     function buildWaLink(product, variantText = '') {
       const vText = variantText ? ` (Varian: ${variantText})` : '';
       const formattedPrice = formatRupiah(product.sellingPrice);
-      const text = `Halo, saya ingin memesan ${product.name}${vText} dengan Harga ${formattedPrice}. Apakah stok masih ada?`;
+      const text = `Halo dukion shop, saya ingin memesan ${product.name}${vText} seharga ${formattedPrice}. Apakah stok masih ada?`;
       return `https://api.whatsapp.com/send?phone=${activeCsNumber}&text=${encodeURIComponent(text)}`;
     }
 
-    // SWAP MAIN CARD PHOTO (INTERACTIVE GALLERY)
-    function swapCardPhoto(productId, targetSrc, clickedThumb) {
-      const imgElem = document.getElementById(`img-${productId}`);
-      if (imgElem) {
-        imgElem.src = targetSrc;
+    // RENDER METODE PEMBAYARAN DI FOOTER
+    function renderFooterPayments() {
+      const container = document.getElementById("footerPaymentCards");
+      if (!container) return;
+      container.innerHTML = paymentMethods.map(item => `
+        <div class="bg-white rounded-2xl p-4 border border-stone-200/90 shadow-sm flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs shrink-0" style="background-color: ${item.bg}; color: ${item.color}">
+              ${item.bank.slice(0, 3).toUpperCase()}
+            </div>
+            <div>
+              <span class="text-xs font-bold text-slate-800 block">${item.bank}</span>
+              <span class="text-[11px] text-slate-500 block">${item.nama}</span>
+              <span class="text-xs font-mono font-bold text-slate-900 block">${item.nomor}</span>
+            </div>
+          </div>
+          <button 
+            type="button" 
+            onclick="copyAccountNumber('${item.nomor}', this, '${item.bank}')" 
+            class="px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-slate-700 font-semibold text-xs rounded-lg transition active:scale-95 shrink-0"
+          >
+            Salin
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // RENDER METODE PEMBAYARAN DI MODAL DETAIL
+    function renderDetailPayments() {
+      const container = document.getElementById("detailPaymentCards");
+      if (!container) return;
+      container.innerHTML = paymentMethods.map(item => `
+        <div class="bg-stone-50 hover:bg-stone-100/80 rounded-xl p-3 border border-stone-200 flex items-center justify-between gap-3 transition">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-black text-[10px] shrink-0" style="background-color: ${item.bg}; color: ${item.color}">
+              ${item.bank.slice(0, 3).toUpperCase()}
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-bold text-slate-900">${item.bank}</span>
+                <span class="text-[10px] text-slate-500 truncate">a.n ${item.nama}</span>
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-800 tracking-wide block select-all">${item.nomor}</span>
+            </div>
+          </div>
+          <button 
+            type="button" 
+            onclick="copyAccountNumber('${item.nomor}', this, '${item.bank}')" 
+            class="px-2.5 py-1 bg-white hover:bg-slate-900 hover:text-white border border-stone-200 text-slate-700 font-semibold text-xs rounded-lg shadow-sm transition active:scale-95 shrink-0 flex items-center gap-1"
+          >
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+            <span>Salin</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // SALIN NOMOR REKENING DENGAN FEEDBACK INSTAN
+    function copyAccountNumber(text, btnElement, bankName) {
+      if (!text) return;
+      const originalHtml = btnElement ? btnElement.innerHTML : 'Salin';
+
+      function showSuccess() {
+        if (btnElement) {
+          btnElement.innerHTML = `<span class="text-emerald-600 font-bold">✓ Tersalin!</span>`;
+          btnElement.classList.add('bg-emerald-50', 'border-emerald-200');
+          setTimeout(() => {
+            btnElement.innerHTML = originalHtml;
+            btnElement.classList.remove('bg-emerald-50', 'border-emerald-200');
+          }, 2000);
+        }
+        showToast(`Nomor rekening ${bankName || ''} berhasil disalin!`);
       }
-      // update active styling on thumbs
-      const card = document.getElementById(`card-${productId}`);
-      if (card) {
-        card.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
-      }
-      if (clickedThumb) {
-        clickedThumb.classList.add('active');
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(showSuccess).catch(() => {
+          fallbackCopy(text, showSuccess);
+        });
+      } else {
+        fallbackCopy(text, showSuccess);
       }
     }
 
-    // RENDER PRODUK UNGGULAN
+    function fallbackCopy(text, callback) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        if (callback) callback();
+      } catch (err) {
+        showToast("Gagal menyalin otomatis, silakan salin manual.");
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // TOAST FEEDBACK
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("copyToast");
+      const msgElem = document.getElementById("toastMsg");
+      if (!toast || !msgElem) return;
+
+      msgElem.textContent = msg;
+      toast.classList.remove("toast-hide");
+      toast.classList.add("toast-show");
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("toast-show");
+        toast.classList.add("toast-hide");
+      }, 2500);
+    }
+
+    // RENDER PRODUK UNGGULAN (DARK LUXURY SECTION)
     function renderFeaturedShowcase() {
       const container = document.getElementById("featuredProductsGrid");
       const featuredItems = PRODUCTS.filter(p => p.featured).slice(0, 4);
 
       container.innerHTML = featuredItems.map(p => {
-        const waUrl = buildWaLink(p);
+        const waUrl = buildWaLink(p, p.variants && p.variants.length > 0 ? p.variants[0] : '');
         const iconSvg = CATEGORY_ICONS[p.category] || '';
 
         return `
-          <div class="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between hover:border-amber-500/50 transition-all duration-300 group shadow-lg">
+          <article 
+            onclick="openProductDetail('${p.id}')"
+            class="product-card bg-slate-900/90 border border-slate-700/80 rounded-2xl p-3 sm:p-4 flex flex-col justify-between hover:border-amber-500/50 transition-all duration-300 group shadow-lg"
+          >
             <div>
               <div class="relative aspect-[4/5] bg-gradient-to-br from-slate-800 to-slate-950 rounded-xl overflow-hidden mb-3 border border-slate-700/50 flex items-center justify-center">
                 
@@ -1518,7 +2241,6 @@
                   </div>
                   <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">${p.category}</span>
                   <span class="text-xs font-semibold text-slate-200 mt-0.5 line-clamp-1">${p.name}</span>
-                  <span class="text-[9px] text-slate-500 font-mono mt-1">${p.imagePath}</span>
                 </div>
 
                 <!-- Foto Asli -->
@@ -1531,7 +2253,7 @@
                 >
 
                 <div class="absolute top-2 right-2">
-                  <span class="bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow">PILIHAN</span>
+                  <span class="bg-amber-500 text-slate-950 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow">PILIHAN</span>
                 </div>
               </div>
 
@@ -1539,13 +2261,13 @@
                 ${iconSvg}
                 <span>${p.category}</span>
               </div>
-              <h3 class="font-bold text-sm sm:text-base text-white group-hover:text-amber-300 transition line-clamp-1">${p.name}</h3>
-              <p class="text-xs text-slate-400 line-clamp-2 mt-1 mb-3">${p.desc}</p>
+              <h3 class="font-bold text-xs sm:text-sm md:text-base text-white group-hover:text-amber-300 transition line-clamp-2 leading-snug">${p.name}</h3>
+              <p class="text-[11px] sm:text-xs text-slate-400 line-clamp-2 mt-1 mb-3 leading-relaxed">${p.desc}</p>
             </div>
 
             <div class="pt-2 border-t border-slate-800">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-800/60 px-2.5 py-1 rounded-full">
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="text-xs sm:text-sm font-extrabold text-amber-400 bg-amber-950/60 border border-amber-800/60 px-2.5 py-0.5 rounded-full">
                   ${formatRupiah(p.sellingPrice)}
                 </span>
                 <span class="text-[10px] text-emerald-400 font-semibold">Ready Stock</span>
@@ -1554,18 +2276,19 @@
                 href="${waUrl}" 
                 target="_blank" 
                 rel="noopener"
-                class="btn-wa w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 shadow"
+                onclick="event.stopPropagation()"
+                class="btn-wa w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 sm:py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow"
               >
-                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                <span>Beli via WhatsApp</span>
+                <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <span>Beli via WA</span>
               </a>
             </div>
-          </div>
+          </article>
         `;
       }).join('');
     }
 
-    // RENDER SEMUA PRODUK PADA GRID UTAMA
+    // RENDER SEMUA PRODUK PADA GRID UTAMA (RESPONSIF AUTO-HEIGHT BEBAS POTONG)
     function renderMainGrid(products) {
       const grid = document.getElementById("productGrid");
       const emptyState = document.getElementById("emptyState");
@@ -1581,65 +2304,47 @@
       emptyState.classList.add("hidden");
 
       grid.innerHTML = products.map((p, index) => {
-        const waUrl = buildWaLink(p);
+        const waUrl = buildWaLink(p, p.variants && p.variants.length > 0 ? p.variants[0] : '');
         const iconSvg = CATEGORY_ICONS[p.category] || '';
 
         // Status badge
         const statusBadge = p.isDiscontinue
-          ? `<span class="bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-bold px-2 py-0.5 rounded-full">Arsip</span>`
-          : `<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Ready</span>`;
+          ? `<span class="bg-rose-50 text-rose-700 border border-rose-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">Arsip</span>`
+          : `<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Ready</span>`;
 
-        // Interactive Thumbnail gallery for multiple photo variants
-        let galleryHtml = '';
+        // Mini preview thumbnail jika ada beberapa foto
+        let miniThumbs = '';
         if (p.galleryPaths && p.galleryPaths.length > 1) {
-          galleryHtml = `
-            <div class="flex items-center gap-1.5 mt-2.5 overflow-x-auto no-scrollbar py-0.5">
-              ${p.galleryPaths.slice(0, 4).map((src, i) => `
-                <button 
-                  type="button"
-                  title="Lihat foto varian ${i + 1}"
-                  onclick="swapCardPhoto('${p.id}', '${src}', this)"
-                  class="thumb-btn w-7 h-7 rounded-md overflow-hidden border border-stone-200 bg-stone-100 shrink-0 ${i === 0 ? 'active' : ''}"
-                >
-                  <img src="${src}" alt="Thumb" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'20\\' height=\\'20\\' fill=\\'none\\' stroke=\\'%2394a3b8\\'><rect width=\\'20\\' height=\\'20\\' fill=\\'%23f1f5f9\\'/></svg>'">
-                </button>
+          miniThumbs = `
+            <div class="flex items-center gap-1 mt-2 overflow-x-auto no-scrollbar py-0.5">
+              ${p.galleryPaths.slice(0, 3).map((src, i) => `
+                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-md overflow-hidden border border-stone-200 bg-stone-100 shrink-0">
+                  <img src="${src}" alt="Thumb" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                </div>
               `).join('')}
-              ${p.galleryPaths.length > 4 ? `<span class="text-[9px] text-slate-400 font-medium">+${p.galleryPaths.length - 4}</span>` : ''}
+              ${p.galleryPaths.length > 3 ? `<span class="text-[9px] text-slate-400 font-semibold ml-0.5">+${p.galleryPaths.length - 3}</span>` : ''}
             </div>
           `;
         }
 
-        // Google Drive Link Button jika ada link
-        const driveBtn = p.driveUrl ? `
-          <a 
-            href="${p.driveUrl}" 
-            target="_blank" 
-            rel="noopener"
-            class="text-[10px] font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 py-1 px-2 rounded-lg inline-flex items-center justify-center gap-1 transition w-full mt-1.5"
-          >
-            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
-            <span>Lihat Google Drive</span>
-          </a>
-        ` : '';
-
         return `
           <article 
             id="card-${p.id}" 
+            onclick="openProductDetail('${p.id}')"
             class="product-card fade-card bg-white rounded-2xl border border-stone-200/90 overflow-hidden shadow-soft hover:shadow-card-hover flex flex-col justify-between group"
-            style="transition-delay: ${Math.min(index * 40, 400)}ms;"
+            style="transition-delay: ${Math.min(index * 30, 350)}ms;"
           >
             <div>
-              <!-- IMAGE WRAPPER DENGAN SYSTEM LOCAL FALLBACK PLACEHOLDER -->
+              <!-- IMAGE WRAPPER -->
               <div class="relative aspect-[4/5] bg-gradient-to-br from-stone-100 via-stone-200 to-slate-200 overflow-hidden flex items-center justify-center select-none">
                 
-                <!-- PLACEHOLDER CANTIK OTOMATIS: kotak abu-abu lembut bergradasi, ikon kategori, nama produk -->
-                <div class="placeholder-fallback absolute inset-0 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-                  <div class="w-12 h-12 mb-2 rounded-2xl bg-white/90 shadow-sm border border-stone-200/60 flex items-center justify-center text-slate-500 group-hover:text-amber-700 transition">
+                <!-- PLACEHOLDER CANTIK OTOMATIS -->
+                <div class="placeholder-fallback absolute inset-0 flex flex-col items-center justify-center p-3 text-center pointer-events-none">
+                  <div class="w-10 h-10 sm:w-12 sm:h-12 mb-1.5 rounded-2xl bg-white/90 shadow-sm border border-stone-200/60 flex items-center justify-center text-slate-500 group-hover:text-amber-700 transition">
                     ${iconSvg}
                   </div>
-                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">dukion shop</span>
+                  <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold">dukion shop</span>
                   <span class="text-xs sm:text-sm font-bold text-slate-700 mt-0.5 line-clamp-1 max-w-[90%]">${p.name}</span>
-                  <span class="text-[9px] text-slate-400 font-mono mt-1 px-2 py-0.5 bg-stone-200/60 rounded max-w-[85%] truncate">${p.mainImage}</span>
                 </div>
 
                 <!-- REAL PHOTO LOCAL -->
@@ -1652,36 +2357,34 @@
                   onload="this.style.display='block'; this.previousElementSibling.style.display='none';"
                 >
 
-                <!-- TOP BADGES OVERLAY: Kategori Badge dengan ikon -->
-                <div class="absolute top-2.5 left-2.5 right-2.5 flex justify-between items-start gap-1">
-                  <span class="inline-flex items-center gap-1 text-[10px] font-bold bg-white/95 backdrop-blur-sm text-slate-800 px-2.5 py-1 rounded-full shadow-sm border border-stone-200/80">
+                <!-- TOP BADGES OVERLAY -->
+                <div class="absolute top-2 left-2 right-2 flex justify-between items-start gap-1">
+                  <span class="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold bg-white/95 backdrop-blur-sm text-slate-800 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-sm border border-stone-200/80">
                     ${iconSvg}
-                    <span>${p.category}</span>
+                    <span class="truncate max-w-[65px] sm:max-w-none">${p.category}</span>
                   </span>
                   ${statusBadge}
                 </div>
 
               </div>
 
-              <!-- CARD BODY -->
-              <div class="p-3.5 sm:p-4 pb-2">
-                <h3 class="font-bold text-sm sm:text-base text-slate-900 group-hover:text-amber-800 transition line-clamp-1" title="${p.name}">
+              <!-- CARD BODY (TINGGI OTOMATIS BEBAS POTONG) -->
+              <div class="p-3 sm:p-4 pb-2">
+                <h3 class="font-bold text-xs sm:text-sm md:text-base text-slate-900 group-hover:text-amber-800 transition line-clamp-2 leading-snug" title="${p.name}">
                   ${p.name}
                 </h3>
-                <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
                   ${p.desc}
                 </p>
-
-                <!-- Thumbnails swap jika ada beberapa foto -->
-                ${galleryHtml}
+                ${miniThumbs}
               </div>
             </div>
 
             <!-- CARD FOOTER: HARGA & TOMBOL WA -->
-            <div class="p-3.5 sm:p-4 pt-1">
-              <div class="flex items-baseline justify-between gap-2 pt-2 border-t border-stone-100 mb-2.5">
-                <span class="text-[11px] text-slate-400 font-medium">Harga:</span>
-                <span class="text-sm sm:text-base font-extrabold text-slate-900 bg-stone-100 px-2.5 py-0.5 rounded-full">
+            <div class="p-3 sm:p-4 pt-1">
+              <div class="flex items-baseline justify-between gap-1 pt-2 border-t border-stone-100 mb-2 sm:mb-2.5">
+                <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium">Harga:</span>
+                <span class="text-xs sm:text-sm md:text-base font-black text-amber-900 bg-amber-50/90 border border-amber-200/60 px-2 sm:px-2.5 py-0.5 rounded-lg">
                   ${formatRupiah(p.sellingPrice)}
                 </span>
               </div>
@@ -1691,13 +2394,12 @@
                 href="${waUrl}" 
                 target="_blank" 
                 rel="noopener"
-                class="btn-wa w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold py-2.5 px-3 rounded-full flex items-center justify-center gap-2 shadow-sm"
+                onclick="event.stopPropagation()"
+                class="btn-wa w-full bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] sm:text-xs font-bold py-2 sm:py-2.5 px-2.5 rounded-full flex items-center justify-center gap-1.5 shadow-sm"
               >
-                <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                <span>Beli via WhatsApp</span>
+                <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <span>Beli via WA</span>
               </a>
-
-              ${driveBtn}
             </div>
 
           </article>
@@ -1708,7 +2410,7 @@
       setupScrollObserver();
     }
 
-    // INTERSECTION OBSERVER FOR STAGGERED FADE-IN
+    // INTERSECTION OBSERVER UNTUK STAGGERED FADE-IN
     let observerInstance = null;
     function setupScrollObserver() {
       if (observerInstance) {
@@ -1724,14 +2426,194 @@
           }
         });
       }, {
-        threshold: 0.1,
-        rootMargin: "0px 0px -40px 0px"
+        threshold: 0.08,
+        rootMargin: "0px 0px -20px 0px"
       });
 
       cards.forEach(card => observerInstance.observe(card));
     }
 
-    // FILTER DAN SORTIR LOGIK
+    // =========================================================================
+    // SPA PRODUCT DETAIL LOGIC (FULL-SCREEN OVERLAY / MODAL)
+    // =========================================================================
+    function openProductDetail(productId, updateHash = true) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      currentDetailProduct = product;
+      currentDetailPhotoIndex = 0;
+      currentDetailVariant = (product.variants && product.variants.length > 0) ? product.variants[0] : "";
+
+      // Update location hash for browser back button support
+      if (updateHash) {
+        window.location.hash = `produk/${product.id}`;
+      }
+
+      // Populate Modal Fields
+      document.getElementById("detailBreadcrumb").textContent = product.name;
+      document.getElementById("detailTitle").textContent = product.name;
+      document.getElementById("detailDesc").textContent = product.desc;
+      document.getElementById("detailPrice").textContent = formatRupiah(product.sellingPrice);
+      document.getElementById("detailFallbackName").textContent = product.name;
+
+      // Category Badge
+      const catIcon = CATEGORY_ICONS[product.category] || '';
+      document.getElementById("detailCategoryBadge").innerHTML = `
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold bg-stone-100 text-slate-800 px-3 py-1 rounded-full border border-stone-200">
+          ${catIcon}
+          <span>${product.category}</span>
+        </span>
+      `;
+
+      // Status Badge
+      const statusHtml = product.isDiscontinue
+        ? `<span class="bg-rose-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow">Arsip (Discontinue)</span>`
+        : `<span class="bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span> Ready Stock</span>`;
+      document.getElementById("detailStatusBadge").innerHTML = statusHtml;
+
+      // Set Main Image
+      const mainImgElem = document.getElementById("detailMainImg");
+      mainImgElem.src = product.galleryPaths[0] || product.imagePath;
+      document.getElementById("detailPhotoBadge").textContent = `Foto 1 / ${product.galleryPaths.length}`;
+
+      // Render Thumbnails (HANYA FOTO MILIK PRODUK INI)
+      const thumbsContainer = document.getElementById("detailThumbnailsContainer");
+      const galleryHint = document.getElementById("detailGalleryHint");
+      
+      if (product.galleryPaths && product.galleryPaths.length > 1) {
+        galleryHint.classList.remove("hidden");
+        thumbsContainer.innerHTML = product.galleryPaths.map((src, i) => `
+          <button 
+            type="button" 
+            onclick="setDetailMainPhoto('${src}', ${i}, this)" 
+            class="thumb-btn w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border-2 bg-stone-100 shrink-0 ${i === 0 ? 'active' : 'border-stone-200 opacity-75 hover:opacity-100'}"
+          >
+            <img src="${src}" alt="Thumb ${i+1}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+          </button>
+        `).join('');
+      } else {
+        thumbsContainer.innerHTML = '';
+        galleryHint.classList.add("hidden");
+      }
+
+      // Render Variants
+      const variantsSection = document.getElementById("detailVariantsSection");
+      const variantsList = document.getElementById("detailVariantsList");
+      const selectedVariantLabel = document.getElementById("selectedVariantLabel");
+
+      if (product.variants && product.variants.length > 0) {
+        variantsSection.classList.remove("hidden");
+        selectedVariantLabel.textContent = `Varian: ${currentDetailVariant}`;
+        variantsList.innerHTML = product.variants.map((v, i) => `
+          <button 
+            type="button" 
+            onclick="selectDetailVariant('${v}')" 
+            class="variant-btn text-xs font-semibold px-3 py-1.5 rounded-xl border transition-all duration-200 ${v === currentDetailVariant ? 'bg-slate-900 text-white border-slate-900 shadow-sm' : 'bg-stone-50 text-slate-700 border-stone-200 hover:bg-stone-100'}"
+            data-variant="${v}"
+          >
+            ${v}
+          </button>
+        `).join('');
+      } else {
+        variantsSection.classList.add("hidden");
+      }
+
+      // Render Payment Methods inside Detail
+      renderDetailPayments();
+
+      // Update WhatsApp Checkout Link
+      updateDetailCheckoutLink();
+
+      // Show Modal & Lock Body Scroll
+      const overlay = document.getElementById("productDetailOverlay");
+      overlay.classList.add("active");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeProductDetail(clearHash = true) {
+      const overlay = document.getElementById("productDetailOverlay");
+      overlay.classList.remove("active");
+      document.body.classList.remove("overflow-hidden");
+      currentDetailProduct = null;
+
+      if (clearHash && window.location.hash.startsWith('#produk/')) {
+        // Clean hash without reload
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+    }
+
+    function setDetailMainPhoto(src, index, btnElem) {
+      const mainImg = document.getElementById("detailMainImg");
+      mainImg.classList.add("photo-fading");
+
+      setTimeout(() => {
+        mainImg.src = src;
+        currentDetailPhotoIndex = index;
+        if (currentDetailProduct) {
+          document.getElementById("detailPhotoBadge").textContent = `Foto ${index + 1} / ${currentDetailProduct.galleryPaths.length}`;
+        }
+        mainImg.classList.remove("photo-fading");
+      }, 120);
+
+      const allThumbs = document.querySelectorAll(".thumb-btn");
+      allThumbs.forEach(b => {
+        b.className = "thumb-btn w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border-2 border-stone-200 opacity-75 hover:opacity-100 bg-stone-100 shrink-0";
+      });
+      if (btnElem) {
+        btnElem.className = "thumb-btn w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border-2 bg-stone-100 shrink-0 active";
+      }
+    }
+
+    function selectDetailVariant(variantName) {
+      currentDetailVariant = variantName;
+      document.getElementById("selectedVariantLabel").textContent = `Varian: ${variantName}`;
+
+      const buttons = document.querySelectorAll(".variant-btn");
+      buttons.forEach(btn => {
+        if (btn.dataset.variant === variantName) {
+          btn.className = "variant-btn text-xs font-semibold px-3 py-1.5 rounded-xl border transition-all duration-200 bg-slate-900 text-white border-slate-900 shadow-sm";
+        } else {
+          btn.className = "variant-btn text-xs font-semibold px-3 py-1.5 rounded-xl border transition-all duration-200 bg-stone-50 text-slate-700 border-stone-200 hover:bg-stone-100";
+        }
+      });
+
+      updateDetailCheckoutLink();
+    }
+
+    function updateDetailCheckoutLink() {
+      if (!currentDetailProduct) return;
+      const checkoutBtn = document.getElementById("detailCheckoutBtn");
+      checkoutBtn.href = buildWaLink(currentDetailProduct, currentDetailVariant);
+    }
+
+    // BACKDROP & KEYBOARD ESC LISTENERS UNTUK MENUTUP MODAL
+    document.getElementById("modalBackdrop").addEventListener("click", () => closeProductDetail());
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeProductDetail();
+      }
+    });
+
+    // SPA HASH CHANGE ROUTER (Mendukung tombol Back HP & Browser)
+    function handleHashChange() {
+      const hash = window.location.hash;
+      if (hash.startsWith('#produk/')) {
+        const prodId = hash.replace('#produk/', '');
+        if (prodId && (!currentDetailProduct || currentDetailProduct.id !== prodId)) {
+          openProductDetail(prodId, false);
+        }
+      } else {
+        if (currentDetailProduct) {
+          closeProductDetail(false);
+        }
+      }
+    }
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleHashChange);
+
+    // =========================================================================
+    // FILTER DAN SORTIR LOGIKA
+    // =========================================================================
     function applyFilters() {
       const grid = document.getElementById("productGrid");
       grid.classList.add("grid-fading");
@@ -1739,7 +2621,7 @@
       setTimeout(() => {
         let filtered = [...PRODUCTS];
 
-        // 1. Filter Kategori (Pakaian Atas, Pakaian Bawah, Kerudung, Aksesoris)
+        // 1. Filter Kategori
         if (selectedCategory !== "Semua") {
           filtered = filtered.filter(p => p.category === selectedCategory);
         }
@@ -1787,9 +2669,9 @@
         // Update styling highlight tombol kategori
         catButtons.forEach(b => {
           if (b.dataset.category === selectedCategory) {
-            b.className = "cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 bg-slate-900 text-white shadow-sm";
+            b.className = "cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 bg-slate-900 text-white shadow-sm";
           } else {
-            b.className = "cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60";
+            b.className = "cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60";
           }
         });
 
@@ -1804,9 +2686,9 @@
         selectedStatus = btn.dataset.status;
         statusBtns.forEach(b => {
           if (b.dataset.status === selectedStatus) {
-            b.className = "status-btn px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition";
+            b.className = "status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition";
           } else {
-            b.className = "status-btn px-3 py-1.5 rounded-md hover:text-slate-900 text-slate-600 transition";
+            b.className = "status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:text-slate-900 text-slate-600 transition";
           }
         });
         applyFilters();
@@ -1837,7 +2719,7 @@
     }
 
     heroSearch.addEventListener("input", (e) => handleSearchInput(e.target.value));
-    navSearch.addEventListener("input", (e) => handleSearchInput(e.target.value));
+    if (navSearch) navSearch.addEventListener("input", (e) => handleSearchInput(e.target.value));
     clearBtn.addEventListener("click", () => handleSearchInput(""));
 
     // RESET ALL FILTERS
@@ -1849,14 +2731,14 @@
 
       catButtons.forEach((b, i) => {
         b.className = i === 0 
-          ? "cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 bg-slate-900 text-white shadow-sm"
-          : "cat-pill-btn text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60";
+          ? "cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 bg-slate-900 text-white shadow-sm"
+          : "cat-pill-btn text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-200 text-slate-700 hover:text-slate-900 hover:bg-white/60";
       });
 
       statusBtns.forEach((b, i) => {
         b.className = i === 0 
-          ? "status-btn px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition"
-          : "status-btn px-3 py-1.5 rounded-md hover:text-slate-900 text-slate-600 transition";
+          ? "status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition"
+          : "status-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:text-slate-900 text-slate-600 transition";
       });
 
       applyFilters();
@@ -1873,12 +2755,14 @@
       activeCsNumber = e.target.value;
       document.getElementById("directChatBtn").href = `https://api.whatsapp.com/send?phone=${activeCsNumber}&text=Halo%20dukion%20shop,%20saya%20ingin%20tanya-tanya%20katalog%20produknya.`;
       applyFilters();
+      renderFeaturedShowcase();
+      updateDetailCheckoutLink();
     });
 
     // SCROLL TO TOP FLOATING BUTTON
     const scrollBtn = document.getElementById("scrollTopBtn");
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 350) {
+      if (window.scrollY > 300) {
         scrollBtn.classList.remove("hidden-btn");
         scrollBtn.classList.add("visible-btn");
       } else {
@@ -1891,10 +2775,12 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // INITIALIZATION
+    // INITIALIZATION ON DOM READY
     document.addEventListener("DOMContentLoaded", () => {
+      renderFooterPayments();
       renderFeaturedShowcase();
       applyFilters();
+      handleHashChange(); // Check if URL opened directly with #produk/xxx
     });
   </script>
 
